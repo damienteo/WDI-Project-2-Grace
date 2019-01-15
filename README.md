@@ -15,5 +15,5 @@ Spec:
     • A calendar can also be generated in the spec for the user to see if he is meeting goals of weekly or daily entries, and to allow for a friendlier way of accessing past entries.
 
 npm init --y
-npm i express react pg
+npm i express react react-dom pg express-react-views method-override cookie-parser
 
