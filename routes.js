@@ -13,6 +13,7 @@ module.exports = (app, db) => {
   app.get('/users/register', users.register);
   app.post('/users/registered', users.registered);
   app.get('/users/login', users.login);
+  app.post('/users/loggedin', users.loggedin);
 
   // Authentication
 

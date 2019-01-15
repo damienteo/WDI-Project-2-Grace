@@ -6,7 +6,7 @@ class Home extends React.Component {
 
     return (
       <NavBar>
-        <form className="user-form col-6" method="POST" action="/logging">
+        <form className="user-form col-6" method="POST" action="/users/loggedin">
           <div className="form-group user-attribute">
             <label htmlFor="inputUsername">Username</label>
             <input type="text" className="form-control" name="name" id="name" placeholder="Enter your username"/>
