@@ -1,7 +1,7 @@
 module.exports = (app, db) => {
 
   const users = require('./controllers/users')(db);
-  // const entries = require('./controllers/entries')(db);
+  const journals = require('./controllers/journals')(db);
 
   /*
    *  =========================================
@@ -14,8 +14,8 @@ module.exports = (app, db) => {
   app.post('/users/registered', users.registered);
   app.get('/users/login', users.login);
   app.post('/users/loggedin', users.loggedin);
-  app.get('/users/profile', users.profile);
   app.get('/users/logout', users.logout);
+  app.get('/users/profile', users.profile);
 
   // Authentication
 
@@ -25,6 +25,8 @@ module.exports = (app, db) => {
    *  =========================================
    */
 
-  // app.get('/entries', entries.index);
-
+  // app.get('/journal/home', entries.show);
+  app.get('/journals/new', journals.newJournal);
+  app.post('/journals/new', journals.newJournal);
+  app.post('/journals/complete', journals.complete);
 };

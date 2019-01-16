@@ -84,27 +84,6 @@ let loggedin = (request, response) => {
 	});
 }
 
-let profile = (request, response) => {
-
-	let currentUserId = request.cookies['userId'];
-	let currentLog = request.cookies['loggedin'];
-	let compareLog = sha256(loginString + currentUserId);
-
-	if( currentLog == null ){
-
-		message = "Please Login";
-
-    }else{
-      
-		if( currentLog == compareLog ){
-			message = "Here is your profile";
-	    }else{
-	     	message = "Invalid Profile";
-	    }
-    }
-    response.render('Message', {message});
-}
-
 let logout = (request, response) => {
 
 	let currentUserId = request.cookies['userId'];
@@ -129,6 +108,27 @@ let logout = (request, response) => {
     response.render('Message', {message});
 }
 
+let profile = (request, response) => {
+
+	let currentUserId = request.cookies['userId'];
+	let currentLog = request.cookies['loggedin'];
+	let compareLog = sha256(loginString + currentUserId);
+
+	if( currentLog == null ){
+
+		message = "Please Login";
+
+    }else{
+      
+		if( currentLog == compareLog ){
+			message = "Here is your profile";
+	    }else{
+	     	message = "Invalid Profile";
+	    }
+    }
+    response.render('Message', {message});
+}
+
 
 /**
 * ===========================================
@@ -140,8 +140,8 @@ let logout = (request, response) => {
 		register,
 		registered,
 		loggedin,
-		profile,
-		logout
+		logout,
+		profile
 	};
 
 }

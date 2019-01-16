@@ -37,7 +37,8 @@ app.get('/', (request, response) => {
 
  // Catch all unmatched requests and return 404 not found page
 app.get('*', (request, response) => {
-  response.send('notfound');
+  message = "Page not found";
+  response.render('Message', {message});
 });
 
 /**
