@@ -1,6 +1,8 @@
 const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
 
+const loginString = "Welcome to Grace";
+
 module.exports = (db) => {
 
 /**
@@ -47,14 +49,12 @@ let login = (request, response) => {
 let loggedin = (request, response) => {
 
 	let username = request.body.name;
-	let loginString = "Welcome to Grace";
-	let hashUsername = sha256(loginString + username);
-
 	let password = sha256(request.body.password);
 	
 	db.users.loggedin(username, password, (error, users) => {
 
-		console.log(users);
+		let userId = users[0].id;
+		let hashUserId = sha256(loginString + userId);
 
 	    if (error) {
 
@@ -72,8 +72,8 @@ let loggedin = (request, response) => {
 				
 				if (users[0].password == password) {
 
-				response.cookie('loggedin', hashUsername);
-				response.cookie('userID', users[0].id);
+				response.cookie('loggedin', hashUserId);
+				response.cookie('userId', userId);
 				response.send('Success');
 		          
 		        } else {
@@ -84,6 +84,31 @@ let loggedin = (request, response) => {
 	});
 }
 
+let profile = (request, response) => {
+
+	let currentUserId = request.cookies['userId'];
+	let currentLog = request.cookies['loggedin'];
+	let compareLog = sha256(loginString + currentUserId);
+
+	if( currentLog == null ){
+
+		response.send('Please Login');
+
+    }else{
+      
+		if( currentLog == compareLog ){
+
+			response.send('Here is your profile');
+
+	    }else{
+
+	      response.send('Invalid Profile');
+
+	    }
+    }
+}
+
+
 /**
 * ===========================================
 * Export controller functions as a module
@@ -93,7 +118,8 @@ let loggedin = (request, response) => {
 		login,
 		register,
 		registered,
-		loggedin
+		loggedin,
+		profile
 	};
 
 }

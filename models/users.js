@@ -49,7 +49,7 @@ let loggedin = ( username, password, callback) => {
 
 return {
 	registered,
-	loggedin
+	loggedin,
 };
 
 }
