@@ -108,6 +108,33 @@ let profile = (request, response) => {
     }
 }
 
+let logout = (request, response) => {
+
+	let currentUserId = request.cookies['userId'];
+	let currentLog = request.cookies['loggedin'];
+	let compareLog = sha256(loginString + currentUserId);
+
+	if( currentLog == null ){
+
+		response.send('you are not logged in');
+
+    }else{
+      
+		if( currentLog == compareLog ){
+
+			response.clearCookie('loggedin');
+        	response.clearCookie('userId');
+
+			response.send('You have logged out');
+
+	    }else{
+
+	     	response.send('Invalid User Profile. Please log in again.');
+
+	    }
+    }
+}
+
 
 /**
 * ===========================================
@@ -119,7 +146,8 @@ let profile = (request, response) => {
 		register,
 		registered,
 		loggedin,
-		profile
+		profile,
+		logout
 	};
 
 }

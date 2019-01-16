@@ -15,6 +15,7 @@ module.exports = (app, db) => {
   app.get('/users/login', users.login);
   app.post('/users/loggedin', users.loggedin);
   app.get('/users/profile', users.profile);
+  app.get('/users/logout', users.logout);
 
   // Authentication
 
