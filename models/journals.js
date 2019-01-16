@@ -40,10 +40,26 @@ let complete = (object, reason, template_id, currentUserId, callback) => {
     currentUserId
   ]
 
-  dbPoolInstance.query(`INSERT INTO entries(object, reason, template_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`, values, (error, queryResult) => {
-      let results = queryResult.rows[0];
-      console.log(results);
-      callback(results);
+  dbPoolInstance.query(`
+    INSERT INTO entries(object, reason, template_id, user_id) 
+    VALUES ($1, $2, $3, $4) 
+    RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+    , values, (error, queryResult) => {
+
+      let latestEntryId = queryResult.rows[0].id;
+
+      dbPoolInstance.query(`
+        SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
+        FROM entries 
+        INNER JOIN templates 
+        ON entries.template_id = templates.id 
+        WHERE entries.id = ${latestEntryId}`
+        , (error, result) => {
+
+        let results = result.rows[0];
+        callback(results);
+        
+      });
   });
 }
 
