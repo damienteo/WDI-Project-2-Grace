@@ -40,7 +40,7 @@ let complete = (object, reason, template_id, currentUserId, callback) => {
     currentUserId
   ]
 
-  dbPoolInstance.query('INSERT INTO entries(object, reason, template_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *', values, (error, queryResult) => {
+  dbPoolInstance.query(`INSERT INTO entries(object, reason, template_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`, values, (error, queryResult) => {
       let results = queryResult.rows[0];
       console.log(results);
       callback(results);
