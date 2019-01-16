@@ -18,28 +18,28 @@ class NavBar extends React.Component{
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/login">Login<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/login">Login<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/new">Register<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/register">Register<span className="sr-only">(current)</span></a>
                       </li>    
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/tweet">Tweet<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/tweet">Tweet<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
                         <a className="nav-link" href="/">Home<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/profile">Profile<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/following">Following<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/following">Following<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/followers ">Followers<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/followers ">Followers<span className="sr-only">(current)</span></a>
                       </li>   
                       <li className="nav-item active">
-                        <a className="nav-link" href="/user/logout">Logout<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/users/logout">Logout<span className="sr-only">(current)</span></a>
                       </li>    
                     </ul>
                   </div>

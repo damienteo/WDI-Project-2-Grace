@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 
 const loginString = "Welcome to Grace";
 
+let message = '';
+
 module.exports = (db) => {
 
 /**
@@ -27,19 +29,18 @@ let registered = (request, response) => {
 
 	     	console.error('error getting username', error);
 	     	response.status(500);
-	     	response.send('server error');
+	     	message = "server error";
 
 	    } else {
 
 	    	if( users === null ){
-
-	        	response.send('registered');
-
+	    		message = "registered";
 	    	}else{
-	        	response.send(users);
+	        	message = "Please pick another username";
 	      	}
 	    }
-	});
+	    response.render('Message', {message: message});
+	});	
 }
 
 let login = (request, response) => {
@@ -53,34 +54,33 @@ let loggedin = (request, response) => {
 	
 	db.users.loggedin(username, password, (error, users) => {
 
-		let userId = users[0].id;
-		let hashUserId = sha256(loginString + userId);
-
 	    if (error) {
 
 	      console.error('error getting username', error);
 	      response.status(500);
-	      response.send('server error');
+	      message = "Server error";
 
 	    } else {
 
 	    	if ( users === null ){
-
-		      	response.send("no such user");
-
+		      	message = "There is no such user. Please try again";
 			} else {
+
+				let userId = users[0].id;
+				let hashUserId = sha256(loginString + userId);
 				
 				if (users[0].password == password) {
 
-				response.cookie('loggedin', hashUserId);
-				response.cookie('userId', userId);
-				response.send('Success');
+					response.cookie('loggedin', hashUserId);
+					response.cookie('userId', userId);
+					message = "Successfully logged in.";
 		          
 		        } else {
-		          response.send('Password incorrect');
+		         	message = "Password Incorrect";
 		        }
 			}
 	    }
+	    response.render('Message', {message});
 	});
 }
 
@@ -92,20 +92,17 @@ let profile = (request, response) => {
 
 	if( currentLog == null ){
 
-		response.send('Please Login');
+		message = "Please Login";
 
     }else{
       
 		if( currentLog == compareLog ){
-
-			response.send('Here is your profile');
-
+			message = "Here is your profile";
 	    }else{
-
-	      response.send('Invalid Profile');
-
+	     	message = "Invalid Profile";
 	    }
     }
+    response.render('Message', {message});
 }
 
 let logout = (request, response) => {
@@ -115,9 +112,7 @@ let logout = (request, response) => {
 	let compareLog = sha256(loginString + currentUserId);
 
 	if( currentLog == null ){
-
-		response.send('you are not logged in');
-
+		message = "you are not logged in";
     }else{
       
 		if( currentLog == compareLog ){
@@ -125,14 +120,13 @@ let logout = (request, response) => {
 			response.clearCookie('loggedin');
         	response.clearCookie('userId');
 
-			response.send('You have logged out');
+			message = "You have logged out";
 
 	    }else{
-
-	     	response.send('Invalid User Profile. Please log in again.');
-
+	     	message = "Invalid User Profile. Please log in again.";
 	    }
     }
+    response.render('Message', {message});
 }
 
 
