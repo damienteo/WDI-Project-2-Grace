@@ -35,10 +35,10 @@ class LatestJournal extends React.Component {
           <select className="custom-select" name="sort">
             <option selected>Choose...</option>
             <option value="dateAsc">
-              Date Ascending
+              Older entries first
             </option>
             <option value="dateDesc">
-              Date Descending
+              Recent entries first
             </option>
           </select>
           <div className="input-group-append">

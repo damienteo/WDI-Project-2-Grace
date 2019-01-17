@@ -22,6 +22,8 @@ module.exports = (app, db) => {
 
   //pending profile statistics in profile
   //customise templates
+  //email reminders
+  //responsive navbar
 
   /*
    *  =========================================
@@ -30,6 +32,7 @@ module.exports = (app, db) => {
    */
 
   app.get('/journals/new', journals.newJournal);
+  app.get('/journals/random/new', journals.randomJournal);
   app.post('/journals/new', journals.newJournal);
   app.post('/journals/complete', journals.complete);
   app.get('/journals/history', journals.history);
@@ -40,5 +43,6 @@ module.exports = (app, db) => {
   app.post('/journals/search', journals.search);
   //sortby template
   //upload photo
+  //show photo posts
 
 };

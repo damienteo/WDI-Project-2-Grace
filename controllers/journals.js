@@ -58,14 +58,31 @@ let newJournal = (request, response) => {
 
 }
 
+let randomJournal = (request, response) => {
+
+	let templateChoice = request.body.id;
+
+	if (templateChoice == null) {
+		templateChoice = Math.floor((Math.random() * 32) + 4);
+	}
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.randomJournal( templateChoice, (journals) => {
+				response.render('entries/RandomJournal', journals);
+			});
+		}
+	)
+
+}
+
 let complete = (request, response) => {
 
 	let object = request.body.object;
 	let reason = request.body.reason;
 	let template_id = request.body.id;
-
-	let model = 	
-	
 
 	userAuthentication(
 		request, 
@@ -209,7 +226,8 @@ let search = (request, response) => {
 		editEntry,
 		editedEntry,
 		sortby,
-		search
+		search,
+		randomJournal
 	};
 
 }

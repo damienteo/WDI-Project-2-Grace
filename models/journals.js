@@ -7,7 +7,7 @@ module.exports = (dbPoolInstance) => {
 
   let newJournal = (templateChoice, callback) => {
 
-    dbPoolInstance.query('SELECT * FROM templates', (error, queryResult) => {
+    dbPoolInstance.query('SELECT * FROM templates WHERE templates.id < 5', (error, queryResult) => {
 
       let journals = {};
       journals.templates=[];
@@ -28,6 +28,22 @@ module.exports = (dbPoolInstance) => {
 
       })
     });
+  }
+
+  let randomJournal = (templateChoice, callback) => {
+
+    dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
+
+      let journals = {};
+      journals.inputs=[];
+
+      for(let i = 0; i < queryResult.rows.length; i++){
+        journals.inputs.push(queryResult.rows[i]);
+      } 
+
+      callback(journals);
+
+    })
   }
 
   let complete = (object, reason, template_id, currentUserId, callback) => {
@@ -197,6 +213,7 @@ module.exports = (dbPoolInstance) => {
 
   return {
   	newJournal,
+    randomJournal,
     complete,
     history,
     deleteEntry,
