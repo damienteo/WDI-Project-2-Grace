@@ -115,7 +115,6 @@ module.exports = (dbPoolInstance) => {
 
         let results = queryResult.rows[0];
         callback(results);
-
     });
   }
 
@@ -147,6 +146,7 @@ module.exports = (dbPoolInstance) => {
           
         });
     });
+
   }
 
   return {

@@ -6,7 +6,7 @@ class NewJournal extends React.Component {
 
     let templates = this.props.templates.map( template => {
       return (
-        <option value={template.id}>
+        <option key = {template.id} value={template.id}>
             {template.name}
         </option>
         );
@@ -14,7 +14,7 @@ class NewJournal extends React.Component {
 
     let inputs = this.props.inputs.map( input => {
       return (
-        <form className="user-form tweet-form" method="POST" action="/journals/complete">
+        <form key = {input.id} className="user-form tweet-form" method="POST" action="/journals/complete">
           <div className="form-group tweet-attribute">
             <label htmlFor="inputTweet"><h3>What do you wish to say?</h3></label>
             <br/>

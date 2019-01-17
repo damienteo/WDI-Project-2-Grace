@@ -14,7 +14,7 @@ class EditJournal extends React.Component {
         <div className="jumbotron">
           <h5><em>On {date} at {time},</em></h5> 
           <p><small>You wrote:</small></p>
-          <form className="user-form col-6 tweet-form" method="POST" action="/edited/journal/">
+          <form className="user-form tweet-form" method="POST" action="/edited/journal/">
             <div className="form-group tweet-attribute">
               <input type="hidden" name="id" id="id" value={id} />
               <h4>{starter}: 

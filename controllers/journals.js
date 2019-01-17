@@ -28,7 +28,7 @@ const userAuthentication = (request, response, model) => {
       
 		if( currentLog == compareLog ){
 			
-			model;
+			model();
 
 	    }else{
 	     	message = "Invalid Profile";
@@ -46,15 +46,14 @@ let newJournal = (request, response) => {
 		templateChoice = 1;
 	}
 
-	let model = 
-	db.journals.newJournal( templateChoice, (journals) => {
-		    response.render('entries/NewJournal', journals);
-		});
-
 	userAuthentication(
 		request, 
 		response, 
-		model
+		() => {
+			db.journals.newJournal( templateChoice, (journals) => {
+				response.render('entries/NewJournal', journals);
+			});
+		}
 	)
 
 }
@@ -66,37 +65,37 @@ let complete = (request, response) => {
 	let template_id = request.body.id;
 
 	let model = 	
-	db.journals.complete( object, reason, template_id, currentUserId, (results) => {
-
-		let info = [];
-
-		let message = {message: "You have inserted the following post"};
-		info.push(message);
-
-		info.push(results);
-
-		response.render('entries/LatestJournal', info);
-	});	
+	
 
 	userAuthentication(
 		request, 
 		response, 
-		model
-	)
+		() => {
+			db.journals.complete( object, reason, template_id, currentUserId, (results) => {
 
+				let info = [];
+
+				let message = {message: "You have inserted the following post"};
+				info.push(message);
+
+				info.push(results);
+
+				response.render('entries/LatestJournal', info);
+			});	
+		}
+	)
 }
 
 let history = (request, response) => {
 
-	let model =
-	db.journals.history(currentUserId, (results) => {
-		response.render('entries/PastJournals', results);
-	});	
-
 	userAuthentication(
 		request, 
 		response, 
-		model
+		() => {
+			db.journals.history(currentUserId, (results) => {
+				response.render('entries/PastJournals', results);
+			});
+		}
 	) 
 }
 
@@ -104,23 +103,22 @@ let deleteEntry = (request, response) => {
 
 	let entryChoice = request.body.id;
 
-	let model =
-	db.journals.deleteEntry(entryChoice, (results) => {
-
-		let info = [];
-
-		let message = {message: "You have deleted the following post"};
-
-		info.push(message);
-		info.push(results);
-
-		response.render('entries/LatestJournal', info);
-	});	
-
 	userAuthentication(
 		request, 
 		response, 
-		model
+		() => {
+			db.journals.deleteEntry(entryChoice, (results) => {
+
+				let info = [];
+
+				let message = {message: "You have deleted the following post"};
+
+				info.push(message);
+				info.push(results);
+
+				response.render('entries/LatestJournal', info);
+			});	
+		}
 	) 
 }
 
@@ -128,15 +126,14 @@ let editEntry = (request, response) => {
 
 	let entryChoice = request.body.id;
 
-	let model =
-	db.journals.editEntry(entryChoice, (results) => {
-		response.render('entries/EditJournal', results);
-	});	
-
 	userAuthentication(
 		request, 
 		response, 
-		model
+		() => {
+			db.journals.editEntry(entryChoice, (results) => {
+				response.render('entries/EditJournal', results);
+			});
+		}
 	) 
 }
 
@@ -146,23 +143,22 @@ let editedEntry = (request, response) => {
 	let object = request.body.object;
 	let reason = request.body.reason;
 
-	let model =
-	db.journals.editedEntry(entryChoice, object, reason, (results) => {
-
-		let info = [];
-
-		let message = {message: "You have edited the following post"};
-
-		info.push(message);
-		info.push(results);
-
-		response.render('entries/LatestJournal', info);
-	});	
-
 	userAuthentication(
 		request, 
 		response, 
-		model
+		() => {
+			db.journals.editedEntry(entryChoice, object, reason, (results) => {
+
+				let info = [];
+
+				let message = {message: "You have edited the following post"};
+
+				info.push(message);
+				info.push(results);
+
+				response.render('entries/LatestJournal', info);
+			});	
+		}
 	) 
 }
 
