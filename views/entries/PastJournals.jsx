@@ -31,7 +31,7 @@ class LatestJournal extends React.Component {
 
     return (
       <NavBar>
-        <form method="POST" action={"/journals/sortby"} id="pastJournalsForm">
+        <form method="POST" action={"/journals/sortby"} id="pastJournalsForm" className="mb-3">
           <select className="custom-select" name="sort">
             <option selected>Choose...</option>
             <option value="dateAsc">

@@ -2,6 +2,7 @@ INSERT INTO templates(name, starter, addon) VALUES('General', 'I am grateful for
 INSERT INTO templates(name, starter, addon) VALUES('Challenges', 'The obstacle which I faced was', 'I am grateful as I learnt');
 INSERT INTO templates(name, starter, addon) VALUES('People', 'I am grateful to', 'S/he helped me');
 INSERT INTO templates(name, starter, addon) VALUES('Moments', 'The best part of my day is', 'Because');
+INSERT INTO templates(name, starter, addon) VALUES('Photos', 'Image Url', 'Elaboration');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'My favorite childhood memory is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'A popular song that I enjoy is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'The one friend who I can always rely on is', 'Because');
@@ -26,7 +27,7 @@ INSERT INTO templates(name, starter, addon) VALUES('Random', 'My favorite food i
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'A important lesson which I learnt from work is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'the hardest thing which I hard to do, which led to major personal accomplishment, is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'The one aspect of my health which I am most grateful for is', 'Because');
-INSERT INTO templates(name, starter, addon) VALUES('Random', 'My favorite habit is', 'Because');
+INSERT INTO templates(name, starter, addon) VALUES('Random', 'My favorite habit is', 'Because');	
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'A quality which I like about myself is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'Something which I use everyday and adds value to my life is', 'Because');
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'The thing which I like most about my job is', 'Because');
@@ -36,4 +37,8 @@ INSERT INTO templates(name, starter, addon) VALUES('Random', 'The book which I a
 INSERT INTO templates(name, starter, addon) VALUES('Random', 'A gift which I appreciated very much is', 'Because');
 
 
-INSERT INTO entries(object, reason, template_id, user_id) VALUES('work', 'money', 1, 2);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('Oldest Entry', 'Oldest Entry', 1, 3);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('Find this post', 'ccsdcsdc', 1, 3);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('cccscsacs', 'Find this post', 1, 3);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('1234567', 'ccsdcsdc', 1, 3);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('cccscsacs', '1234567', 1, 3);

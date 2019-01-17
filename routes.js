@@ -1,4 +1,4 @@
-module.exports = (app, db) => {
+module.exports = (app, db, upload) => {
 
   const users = require('./controllers/users')(db);
   const journals = require('./controllers/journals')(db);
@@ -21,6 +21,7 @@ module.exports = (app, db) => {
   app.get('/users/profile', users.profile);
 
   //pending profile statistics in profile
+  //delete user?
   //customise templates
   //email reminders
   //responsive navbar
@@ -41,8 +42,12 @@ module.exports = (app, db) => {
   app.delete('/delete/journal', journals.deleteEntry);
   app.post('/journals/sortby', journals.sortby);
   app.post('/journals/search', journals.search);
+  app.get('/journals/photo/new', journals.newPhoto);
+  app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
+  //issues with passing upload
+
+
+  //multiple entries
   //sortby template
-  //upload photo
-  //show photo posts
 
 };

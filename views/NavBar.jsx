@@ -33,6 +33,8 @@ class NavBar extends React.Component{
                           <div className="dropdown-divider"></div>
                           <a className="dropdown-item" href="/journals/random/new">New Random Entry</a>
                           <div className="dropdown-divider"></div>
+                          <a className="dropdown-item" href="/journals/photo/new">Post Photo</a>
+                          <div className="dropdown-divider"></div>
                           <a className="dropdown-item" href="/journals/history">History</a>
                         </div>
                       </li>

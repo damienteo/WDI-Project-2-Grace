@@ -1,5 +1,10 @@
 const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+
+const upload = multer({
+  dest: 'uploads/' // this saves your file into a directory called "uploads"
+});
 
 const loginString = "Welcome to Grace";
 
@@ -213,6 +218,33 @@ let search = (request, response) => {
 	) 
 }
 
+let newPhoto = (request, response) => {
+
+	userAuthentication(
+		request, 
+		response, 
+		response.render('entries/NewPhoto')
+	)
+}
+
+let sentPhoto = (request, response) => {
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			console.log(request.file.filename);
+			console.log(request.body.reason);
+			message = "Photo uploaded.";
+		    response.render('Message', {message});
+		}
+	)
+}
+
+//template for photo posts
+//view for photo post
+//response.render for photo post
+
 /**
 * ===========================================
 * Export controller functions as a module
@@ -227,7 +259,9 @@ let search = (request, response) => {
 		editedEntry,
 		sortby,
 		search,
-		randomJournal
+		randomJournal,
+		newPhoto,
+		sentPhoto
 	};
 
 }

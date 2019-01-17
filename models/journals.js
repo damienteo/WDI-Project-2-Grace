@@ -85,7 +85,8 @@ module.exports = (dbPoolInstance) => {
       FROM entries 
       INNER JOIN templates 
       ON entries.template_id = templates.id 
-      WHERE entries.user_id = ${currentUserId}`
+      WHERE entries.user_id = ${currentUserId}
+      ORDER BY entries.created_at DESC`
       , (error, result) => {
 
         let entries = {};

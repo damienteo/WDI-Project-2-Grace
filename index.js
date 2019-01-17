@@ -1,9 +1,20 @@
 const express = require('express');
 const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); 
+const multer = require('multer');
 
 const db = require('./db');
 const app = express();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+const upload = multer({ storage: storage })
 
 // Set up middleware
 app.use(methodOverride('_method'));
@@ -28,7 +39,7 @@ app.engine('jsx', reactEngine);
  */
 
  // Import routes to match incoming requests
-require('./routes')(app, db);
+require('./routes')(app, db, upload);
 
 // Root GET request (it doesn't belong in any controller file)
 app.get('/', (request, response) => {
