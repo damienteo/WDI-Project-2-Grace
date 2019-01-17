@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class NavBar extends React.Component{
     render(){
         return(
-            <html>
+          <html>
             <head>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous" />
             <link rel="stylesheet" type="text/css" href="styles/style.css" />
@@ -23,12 +23,16 @@ class NavBar extends React.Component{
                       </li>
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/register">Register<span className="sr-only">(current)</span></a>
-                      </li>    
-                      <li className="nav-item active">
-                        <a className="nav-link" href="/journals/new">New Entry<span className="sr-only">(current)</span></a>
                       </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
+                      <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Entries
+                        </a>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a className="dropdown-item" href="/journals/new">New Entry</a>
+                          <div className="dropdown-divider"></div>
+                          <a className="dropdown-item" href="/journals/history">History</a>
+                        </div>
                       </li>
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
@@ -37,6 +41,10 @@ class NavBar extends React.Component{
                         <a className="nav-link" href="/users/logout">Logout<span className="sr-only">(current)</span></a>
                       </li>    
                     </ul>
+                    <form className="form-inline my-2 my-lg-0" method="POST" action={"/journals/search"} id="searchJournals">
+                      <input className="form-control mr-sm-2" type="search" placeholder="Search your past entries" aria-label="Search" name="searchTerm" />
+                      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                   </div>
                 </nav>
                 <div className="container">

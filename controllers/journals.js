@@ -162,6 +162,40 @@ let editedEntry = (request, response) => {
 	) 
 }
 
+let sortby = (request, response) => {
+
+	if (request.body.sort == "dateAsc") {
+        	order = 'ASC';
+        } else if (request.body.sort == "dateDesc"){
+    		order = 'DESC';
+        }
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.sortby(currentUserId, order, (results) => {
+				response.render('entries/PastJournals', results);
+			});
+		}
+	) 
+}
+
+let search = (request, response) => {
+
+	searchTerm = request.body.searchTerm;
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.search(currentUserId, searchTerm, (results) => {
+				response.render('entries/PastJournals', results);
+			});
+		}
+	) 
+}
+
 /**
 * ===========================================
 * Export controller functions as a module
@@ -173,7 +207,9 @@ let editedEntry = (request, response) => {
 		history,
 		deleteEntry,
 		editEntry,
-		editedEntry
+		editedEntry,
+		sortby,
+		search
 	};
 
 }

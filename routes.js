@@ -36,9 +36,8 @@ module.exports = (app, db) => {
   app.post('/edit/journal', journals.editEntry);
   app.post('/edited/journal', journals.editedEntry);
   app.delete('/delete/journal', journals.deleteEntry);
-
-  //sortby date ascending or descending
-  //sortby search
+  app.post('/journals/sortby', journals.sortby);
+  app.post('/journals/search', journals.search);
   //sortby template
   //upload photo
 

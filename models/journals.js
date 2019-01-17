@@ -149,12 +149,60 @@ module.exports = (dbPoolInstance) => {
 
   }
 
+  let sortby = (currentUserId, order, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.user_id = ${currentUserId}
+      ORDER BY entries.created_at ${order}`
+      , (error, result) => {
+
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        callback(entries);  
+
+    });
+  }
+
+  let search = (currentUserId, searchTerm, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, 
+        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        templates.name, 
+        templates.starter, 
+        templates.addon, 
+        templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.user_id = ${currentUserId}
+      AND ((entries.object ILIKE '%${searchTerm}%')
+      OR (entries.reason ILIKE '%${searchTerm}%'))`
+      , (error, result) => {
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        callback(entries);  
+    });
+  }
+
   return {
   	newJournal,
     complete,
     history,
     deleteEntry,
     editEntry,
-    editedEntry
+    editedEntry,
+    sortby,
+    search
   };
 }
