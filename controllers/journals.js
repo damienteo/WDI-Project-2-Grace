@@ -13,11 +13,32 @@ module.exports = (db) => {
 * ===========================================
 */
 
-let newJournal = (request, response) => {
+const userAuthentication = (request, response, model) => {
 
-	let currentUserId = request.cookies['userId'];
-	let currentLog = request.cookies['loggedin'];
-	let compareLog = sha256(loginString + currentUserId);
+	currentUserId = request.cookies['userId'];
+	currentLog = request.cookies['loggedin'];
+	compareLog = sha256(loginString + currentUserId);
+
+	if( currentLog == null ){
+
+		message = "Please Login";
+		response.render('Message', {message});
+
+    }else{
+      
+		if( currentLog == compareLog ){
+			
+			model;
+
+	    }else{
+	     	message = "Invalid Profile";
+	     	response.render('Message', {message});
+	    }
+    }
+
+}
+
+let newJournal = (request, response) => {
 
 	let templateChoice = request.body.id;
 
@@ -25,54 +46,36 @@ let newJournal = (request, response) => {
 		templateChoice = 1;
 	}
 
-	if( currentLog == null ){
+	let model = 
+	db.journals.newJournal( templateChoice, (journals) => {
+		    response.render('entries/NewJournal', journals);
+		});
 
-		message = "Please Login";
-		response.render('Message', {message});
+	userAuthentication(
+		request, 
+		response, 
+		model
+	)
 
-    }else{
-      
-		if( currentLog == compareLog ){
-			
-			db.journals.newJournal( templateChoice, (journals) => {
-
-			    response.render('entries/NewJournal', journals);
-			});	
-
-	    }else{
-	     	message = "Invalid Profile";
-	     	response.render('Message', {message});
-	    }
-    }
 }
 
 let complete = (request, response) => {
-	let currentUserId = request.cookies['userId'];
-	let currentLog = request.cookies['loggedin'];
-	let compareLog = sha256(loginString + currentUserId);
 
 	let object = request.body.object;
 	let reason = request.body.reason;
 	let template_id = request.body.id;
 
-	if( currentLog == null ){
+	let model = 	
+	db.journals.complete( object, reason, template_id, currentUserId, (results) => {
+	    response.render('entries/LatestJournal', results);
+	});	
 
-		message = "Please Login";
-		response.render('Message', {message});
+	userAuthentication(
+		request, 
+		response, 
+		model
+	)
 
-    }else{
-      
-		if( currentLog == compareLog ){
-			
-			db.journals.complete( object, reason, template_id, currentUserId, (results) => {
-			    response.render('entries/LatestJournal', results);
-			});	
-
-	    }else{
-	     	message = "Invalid Profile";
-	     	response.render('Message', {message});
-	    }
-    }
 }
 
 
