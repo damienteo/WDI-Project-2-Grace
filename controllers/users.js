@@ -13,15 +13,49 @@ module.exports = (db) => {
 * ===========================================
 */
 
+const userAuthentication = request => {
+
+	currentUserId = request.cookies['userId'];
+	currentLog = request.cookies['loggedin'];
+	compareLog = sha256(loginString + currentUserId);
+
+}
+
+const fullAuthentication = (request, response, view) => {
+
+	currentUserId = request.cookies['userId'];
+	currentLog = request.cookies['loggedin'];
+	compareLog = sha256(loginString + currentUserId);
+
+	if( currentLog == null ){
+		response.render(view);
+
+    }else{
+		if( currentLog == compareLog ){
+			message = "You are already logged in. Please log out first.";
+			response.render('Message', {message});
+	    }else{
+	     	response.render(view);
+	    }
+    }
+};
+
+const userPassword = request => {
+
+	username = request.body.name;
+	password = sha256(request.body.password);
+
+}
 
 let register = (request, response) => {
-	response.render('users/Register');
+
+	fullAuthentication(request, response, 'users/Register');
+	
 }
 
 let registered = (request, response) => {
 
-	let username = request.body.name;
-	let password = sha256(request.body.password);
+	userPassword(request);
 
 	db.users.registered(username, password, (error, users) => {
 
@@ -34,7 +68,7 @@ let registered = (request, response) => {
 	    } else {
 
 	    	if( users === null ){
-	    		message = "registered";
+	    		message = "Successfully Registered. You may now log in.";
 	    	}else{
 	        	message = "Please pick another username";
 	      	}
@@ -44,16 +78,17 @@ let registered = (request, response) => {
 }
 
 let login = (request, response) => {
-	response.render('users/Login');
+
+	fullAuthentication(request, response, 'users/Login');
+
 }
 
 let loggedin = (request, response) => {
 
-	let username = request.body.name;
-	let password = sha256(request.body.password);
+	userPassword(request);
 	
 	db.users.loggedin(username, password, (error, users) => {
-
+2
 	    if (error) {
 
 	      console.error('error getting username', error);
@@ -86,9 +121,7 @@ let loggedin = (request, response) => {
 
 let logout = (request, response) => {
 
-	let currentUserId = request.cookies['userId'];
-	let currentLog = request.cookies['loggedin'];
-	let compareLog = sha256(loginString + currentUserId);
+	userAuthentication(request);
 
 	if( currentLog == null ){
 		message = "you are not logged in";
@@ -110,9 +143,7 @@ let logout = (request, response) => {
 
 let profile = (request, response) => {
 
-	let currentUserId = request.cookies['userId'];
-	let currentLog = request.cookies['loggedin'];
-	let compareLog = sha256(loginString + currentUserId);
+	userAuthentication(request);
 
 	if( currentLog == null ){
 

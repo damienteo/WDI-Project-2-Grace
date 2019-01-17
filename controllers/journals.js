@@ -65,7 +65,6 @@ let complete = (request, response) => {
 		if( currentLog == compareLog ){
 			
 			db.journals.complete( object, reason, template_id, currentUserId, (results) => {
-				console.log(results.created_at);
 			    response.render('entries/LatestJournal', results);
 			});	
 
