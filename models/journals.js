@@ -5,87 +5,109 @@
  */
 module.exports = (dbPoolInstance) => {
 
-let newJournal = (templateChoice, callback) => {
+  let newJournal = (templateChoice, callback) => {
 
-  dbPoolInstance.query('SELECT * FROM templates', (error, queryResult) => {
+    dbPoolInstance.query('SELECT * FROM templates', (error, queryResult) => {
 
-    let journals = {};
-    journals.templates=[];
-
-    for(let i = 0; i < queryResult.rows.length; i++){
-          journals.templates.push(queryResult.rows[i]);
-    }
-
-    dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
-
-     	journals.inputs=[];
+      let journals = {};
+      journals.templates=[];
 
       for(let i = 0; i < queryResult.rows.length; i++){
-        journals.inputs.push(queryResult.rows[i]);
+            journals.templates.push(queryResult.rows[i]);
+      }
 
-      callback(journals);
+      dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
 
-      } 
+       	journals.inputs=[];
 
-    })
-  });
-}
+        for(let i = 0; i < queryResult.rows.length; i++){
+          journals.inputs.push(queryResult.rows[i]);
+        } 
 
-let complete = (object, reason, template_id, currentUserId, callback) => {
+        callback(journals);
 
-  const values = [
-    object, 
-    reason, 
-    template_id, 
-    currentUserId
-  ]
+      })
+    });
+  }
 
-  dbPoolInstance.query(`
-    INSERT INTO entries(object, reason, template_id, user_id) 
-    VALUES ($1, $2, $3, $4) 
-    RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
-    , values, (error, queryResult) => {
+  let complete = (object, reason, template_id, currentUserId, callback) => {
 
-      let latestEntryId = queryResult.rows[0].id;
+    const values = [
+      object, 
+      reason, 
+      template_id, 
+      currentUserId
+    ]
 
-      dbPoolInstance.query(`
-        SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
-        FROM entries 
-        INNER JOIN templates 
-        ON entries.template_id = templates.id 
-        WHERE entries.id = ${latestEntryId}`
-        , (error, result) => {
+    dbPoolInstance.query(`
+      INSERT INTO entries(object, reason, template_id, user_id) 
+      VALUES ($1, $2, $3, $4) 
+      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+      , values, (error, queryResult) => {
 
-        let results = result.rows[0];
-        callback(results);
-        
-      });
-  });
-}
+        let latestEntryId = queryResult.rows[0].id;
 
-let history = (currentUserId, callback) => {
+        dbPoolInstance.query(`
+          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
+          FROM entries 
+          INNER JOIN templates 
+          ON entries.template_id = templates.id 
+          WHERE entries.id = ${latestEntryId}`
+          , (error, result) => {
 
-  dbPoolInstance.query(`
-    SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
-    FROM entries 
-    INNER JOIN templates 
-    ON entries.template_id = templates.id 
-    WHERE entries.user_id = ${currentUserId}`
-    , (error, result) => {
-      let entries = {};
-      entries.list=[];
-      for(let i = 0; i < result.rows.length; i++){
-              entries.list.push(result.rows[i]);
-          }
-      callback(entries);
-        
-  });
-}
+          let results = result.rows[0];
+          callback(results);
+          
+        });
+    });
+  }
+
+  let history = (currentUserId, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.user_id = ${currentUserId}`
+      , (error, result) => {
+
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        callback(entries);  
+
+    });
+  }
+
+  let deleteEntry = (entryChoice, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.id = ${entryChoice}`
+      , (error, queryResult) => {
+
+        let results = queryResult.rows[0];
+
+        dbPoolInstance.query(`
+          DELETE FROM entries
+          WHERE entries.id = ${entryChoice}`
+          , (error, result) => {
+          let results = queryResult.rows[0];
+          callback(results);
+        });
+    });
+  }
 
   return {
   	newJournal,
     complete,
-    history
+    history,
+    deleteEntry
   };
-
 }

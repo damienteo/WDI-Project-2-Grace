@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const loginString = "Welcome to Grace";
 
 let message = '';
+let info = [];
 
 module.exports = (db) => {
 
@@ -67,7 +68,13 @@ let complete = (request, response) => {
 
 	let model = 	
 	db.journals.complete( object, reason, template_id, currentUserId, (results) => {
-	    response.render('entries/LatestJournal', results);
+
+		let message = {message: "You have inserted the following post"};
+		info.push(message);
+
+		info.push(results);
+
+		response.render('entries/LatestJournal', info);
 	});	
 
 	userAuthentication(
@@ -82,7 +89,6 @@ let history = (request, response) => {
 
 	let model =
 	db.journals.history(currentUserId, (results) => {
-		console.log(results);
 		response.render('entries/PastJournals', results);
 	});	
 
@@ -91,8 +97,28 @@ let history = (request, response) => {
 		response, 
 		model
 	) 
+}
 
-	console.log("controller use id:" + currentUserId);
+let deleteEntry = (request, response) => {
+
+	let entryChoice = request.body.id;
+
+	let model =
+	db.journals.deleteEntry(entryChoice, (results) => {
+
+		let message = {message: "You have deleted the following post"};
+
+		info.push(message);
+		info.push(results);
+
+		response.render('entries/LatestJournal', info);
+	});	
+
+	userAuthentication(
+		request, 
+		response, 
+		model
+	) 
 }
 
 /**
@@ -103,7 +129,8 @@ let history = (request, response) => {
 	return {
 		newJournal,
 		complete,
-		history
+		history,
+		deleteEntry
 	};
 
 }
