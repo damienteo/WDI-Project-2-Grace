@@ -33,11 +33,13 @@ module.exports = (app, db) => {
   app.post('/journals/new', journals.newJournal);
   app.post('/journals/complete', journals.complete);
   app.get('/journals/history', journals.history);
-  // app.get('/edit/journal', journals.edit);
+  app.post('/edit/journal', journals.editEntry);
+  app.post('/edited/journal', journals.editedEntry);
   app.delete('/delete/journal', journals.deleteEntry);
 
   //sortby date ascending or descending
   //sortby search
   //sortby template
+  //upload photo
 
 };

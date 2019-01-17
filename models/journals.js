@@ -91,15 +91,60 @@ module.exports = (dbPoolInstance) => {
       ON entries.template_id = templates.id 
       WHERE entries.id = ${entryChoice}`
       , (error, queryResult) => {
-
-        let results = queryResult.rows[0];
-
         dbPoolInstance.query(`
           DELETE FROM entries
           WHERE entries.id = ${entryChoice}`
           , (error, result) => {
+
           let results = queryResult.rows[0];
           callback(results);
+
+        });
+    });
+  }
+
+  let editEntry = (entryChoice, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.id = ${entryChoice}`
+      , (error, queryResult) => {
+
+        let results = queryResult.rows[0];
+        callback(results);
+
+    });
+  }
+
+  let editedEntry = (entryChoice, object, reason,callback) => {
+
+    const values = [
+      entryChoice,
+      object, 
+      reason
+    ]
+
+    dbPoolInstance.query(`
+      UPDATE entries
+      SET object = $2, reason = $3
+      WHERE ID = $1
+      `
+      , values, (error, queryResult) => {
+
+        dbPoolInstance.query(`
+          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
+          FROM entries 
+          INNER JOIN templates 
+          ON entries.template_id = templates.id 
+          WHERE entries.id = $1`
+          , [entryChoice], (error, result) => {
+
+          let results = result.rows[0];
+          callback(results);
+          
         });
     });
   }
@@ -108,6 +153,8 @@ module.exports = (dbPoolInstance) => {
   	newJournal,
     complete,
     history,
-    deleteEntry
+    deleteEntry,
+    editEntry,
+    editedEntry
   };
 }

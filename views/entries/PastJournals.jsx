@@ -17,7 +17,7 @@ class LatestJournal extends React.Component {
               <p><small>You wrote:</small></p>
               <h4>"{starter}: <strong>{object}</strong></h4>
               <h4>{addon}: <strong>{reason}</strong>"</h4> 
-              <form method="GET" action="/edit/journal/" className = "d-inline-block">
+              <form method="POST" action="/edit/journal/" className = "d-inline-block">
                   <input type="hidden" name="id" id="id" value={id} />
                   <button type="submit" className="btn btn-secondary mr-3 ml-3">Edit</button>
               </form>

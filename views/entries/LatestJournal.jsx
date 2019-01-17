@@ -4,8 +4,6 @@ var NavBar = require('../NavBar');
 class LatestJournal extends React.Component {
   render() {
 
-    console.log(this.props);
-
     var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const date = this.props[1].created_on.toLocaleDateString("en-US", dateOptions);
     const time = this.props[1].to_char;
