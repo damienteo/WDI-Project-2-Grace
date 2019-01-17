@@ -14,14 +14,15 @@ class NewJournal extends React.Component {
 
     let inputs = this.props.inputs.map( input => {
       return (
-        <form className="user-form col-6 tweet-form" method="POST" action="/journals/complete">
+        <form className="user-form tweet-form" method="POST" action="/journals/complete">
           <div className="form-group tweet-attribute">
-            <label htmlFor="inputTweet">What do you wish to say?</label>
+            <label htmlFor="inputTweet"><h3>What do you wish to say?</h3></label>
+            <br/>
             <input type="hidden" name="id" id="id" value={input.id} />
-            {input.starter}
-            <input type="text" className="form-control" name="object" id="object" placeholder="tweeting..."/>
-            {input.addon}
-            <input type="text" className="form-control" name="reason" id="reason" placeholder="tweeting..."/>
+            {input.starter}:
+            <input type="text" className="form-control" name="object" id="object" placeholder="..."/>
+            {input.addon}:
+            <input type="text" className="form-control" name="reason" id="reason" placeholder="..."/>
           </div>
           <button name="submit" type="submit" className="btn btn-primary">Submit</button>
         </form>
@@ -31,13 +32,13 @@ class NewJournal extends React.Component {
     return (
       <NavBar>
         <form method="POST" action={"/journals/new"} id="entry">
-          <p>What do you want to focus on today?</p>
-          <select className="custom-select" name="id">
+          <h3>What do you want to focus on today?</h3>
+          <select className="custom-select col-6 mb-3" name="id">
             <option selected>Choose...</option>
             {templates}
           </select>
-          <div className="input-group-append">
-            <button className="btn btn-outline-info" type="submit">See user's tweets</button>
+          <div className="input-group-append mb-3">
+            <button className="btn btn-outline-info" type="submit">Select</button>
           </div>
         </form>
         {inputs}

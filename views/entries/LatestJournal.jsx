@@ -11,9 +11,11 @@ class LatestJournal extends React.Component {
 
     return (
       <NavBar>
-        <div class="jumbotron">
-          <h1>On {date} at {time}:</h1> 
-          <p>You wrote: {starter}: {object}, {addon}: {reason}. </p> 
+        <div className="jumbotron">
+          <h5><em>On {date} at {time},</em></h5> 
+          <p><small>You wrote:</small></p>
+          <h4>{starter}: <strong>{object}</strong></h4>
+          <h4>{addon}: <strong>{reason}</strong></h4> 
         </div>
       </NavBar>
     );

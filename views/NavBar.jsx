@@ -7,10 +7,11 @@ class NavBar extends React.Component{
             <html>
             <head>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous" />
+            <link rel="stylesheet" type="text/css" href="styles/style.css" />
             <title>Grace</title>
             </head>
             <body className="container-fluid">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3" >
                   <a className="navbar-brand" href="/">Grace</a>
                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -32,12 +33,6 @@ class NavBar extends React.Component{
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
                       </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="/users/following">Following<span className="sr-only">(current)</span></a>
-                      </li>
-                      <li className="nav-item active">
-                        <a className="nav-link" href="/users/followers ">Followers<span className="sr-only">(current)</span></a>
-                      </li>   
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/logout">Logout<span className="sr-only">(current)</span></a>
                       </li>    
