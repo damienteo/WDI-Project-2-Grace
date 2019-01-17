@@ -29,4 +29,5 @@ module.exports = (app, db) => {
   app.get('/journals/new', journals.newJournal);
   app.post('/journals/new', journals.newJournal);
   app.post('/journals/complete', journals.complete);
+  app.get('/journals/history', journals.history);
 };

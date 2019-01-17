@@ -78,6 +78,22 @@ let complete = (request, response) => {
 
 }
 
+let history = (request, response) => {
+
+	let model =
+	db.journals.history(currentUserId, (results) => {
+		console.log(results);
+		response.render('entries/PastJournals', results);
+	});	
+
+	userAuthentication(
+		request, 
+		response, 
+		model
+	) 
+
+	console.log("controller use id:" + currentUserId);
+}
 
 /**
 * ===========================================
@@ -86,7 +102,8 @@ let complete = (request, response) => {
 */
 	return {
 		newJournal,
-		complete
+		complete,
+		history
 	};
 
 }

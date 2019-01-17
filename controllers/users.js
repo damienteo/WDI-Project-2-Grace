@@ -13,7 +13,7 @@ module.exports = (db) => {
 * ===========================================
 */
 
-const userAuthentication = request => {
+const cookieAuthentication = request => {
 
 	currentUserId = request.cookies['userId'];
 	currentLog = request.cookies['loggedin'];
@@ -21,7 +21,7 @@ const userAuthentication = request => {
 
 }
 
-const fullAuthentication = (request, response, view) => {
+const loginAuthentication = (request, response, view) => {
 
 	currentUserId = request.cookies['userId'];
 	currentLog = request.cookies['loggedin'];
@@ -49,7 +49,7 @@ const userPassword = request => {
 
 let register = (request, response) => {
 
-	fullAuthentication(request, response, 'users/Register');
+	loginAuthentication(request, response, 'users/Register');
 	
 }
 
@@ -79,7 +79,7 @@ let registered = (request, response) => {
 
 let login = (request, response) => {
 
-	fullAuthentication(request, response, 'users/Login');
+	loginAuthentication(request, response, 'users/Login');
 
 }
 
@@ -121,7 +121,7 @@ let loggedin = (request, response) => {
 
 let logout = (request, response) => {
 
-	userAuthentication(request);
+	cookieAuthentication(request);
 
 	if( currentLog == null ){
 		message = "you are not logged in";
@@ -143,7 +143,7 @@ let logout = (request, response) => {
 
 let profile = (request, response) => {
 
-	userAuthentication(request);
+	cookieAuthentication(request);
 
 	if( currentLog == null ){
 

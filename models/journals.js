@@ -63,9 +63,29 @@ let complete = (object, reason, template_id, currentUserId, callback) => {
   });
 }
 
+let history = (currentUserId, callback) => {
+
+  dbPoolInstance.query(`
+    SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+    FROM entries 
+    INNER JOIN templates 
+    ON entries.template_id = templates.id 
+    WHERE entries.user_id = ${currentUserId}`
+    , (error, result) => {
+      let entries = {};
+      entries.list=[];
+      for(let i = 0; i < result.rows.length; i++){
+              entries.list.push(result.rows[i]);
+          }
+      callback(entries);
+        
+  });
+}
+
   return {
   	newJournal,
-    complete
+    complete,
+    history
   };
 
 }

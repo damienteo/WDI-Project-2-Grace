@@ -28,7 +28,7 @@ class NavBar extends React.Component{
                         <a className="nav-link" href="/journals/new">New Entry<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
-                        <a className="nav-link" href="/journals/home">Past Entries<span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
