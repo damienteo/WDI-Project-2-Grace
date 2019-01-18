@@ -212,6 +212,36 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  let sentPhoto = (object, reason, templateId, currentUserId, callback) => {
+
+    const values = [
+      currentUserId,
+      object, 
+      reason, 
+      templateId, 
+    ]
+
+    dbPoolInstance.query(`
+      INSERT INTO entries(user_id, object, reason, template_id) 
+      VALUES ($1, $2, $3, $4) 
+      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+      , values, (error, queryResult) => {
+
+       let latestEntryId = queryResult.rows[0].id;
+
+        dbPoolInstance.query(`
+          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM') 
+          FROM entries 
+          WHERE entries.id = ${latestEntryId}`
+          , (error, result) => {
+
+          let results = result.rows[0];
+          callback(results);
+          
+        });
+    });
+  }
+
   return {
   	newJournal,
     randomJournal,
@@ -221,6 +251,7 @@ module.exports = (dbPoolInstance) => {
     editEntry,
     editedEntry,
     sortby,
-    search
+    search,
+    sentPhoto
   };
 }

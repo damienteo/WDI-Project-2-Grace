@@ -12,7 +12,7 @@ class LatestJournal extends React.Component {
         const {object, reason, starter, addon, id} = journal;
 
         return (
-            <div className="jumbotron">
+            <div className="jumbotron" key = {id}>
               <h5><em>On {date} at {time},</em></h5> 
               <p><small>You wrote:</small></p>
               <h4>"{starter}: <strong>{object}</strong></h4>

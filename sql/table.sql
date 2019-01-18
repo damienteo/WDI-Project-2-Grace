@@ -4,6 +4,13 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT
 );
 
+CREATE TABLE IF NOT EXISTS templates (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    starter TEXT,
+    addon TEXT
+);
+
 CREATE TABLE IF NOT EXISTS entries (
     id SERIAL PRIMARY KEY,
     object TEXT,
@@ -12,13 +19,6 @@ CREATE TABLE IF NOT EXISTS entries (
     user_id INTEGER REFERENCES users (id),
     created_on DATE DEFAULT CURRENT_DATE,
     created_at TIME DEFAULT CURRENT_TIME
-);
-
-CREATE TABLE IF NOT EXISTS templates (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    starter TEXT,
-    addon TEXT
 );
 
 -- categories: basic, random, customised

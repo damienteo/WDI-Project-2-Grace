@@ -1,10 +1,5 @@
 const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
-const multer = require('multer');
-
-const upload = multer({
-  dest: 'uploads/' // this saves your file into a directory called "uploads"
-});
 
 const loginString = "Welcome to Grace";
 
@@ -68,7 +63,7 @@ let randomJournal = (request, response) => {
 	let templateChoice = request.body.id;
 
 	if (templateChoice == null) {
-		templateChoice = Math.floor((Math.random() * 32) + 4);
+		templateChoice = Math.floor((Math.random() * 32) + 6);
 	}
 
 	userAuthentication(
@@ -223,27 +218,36 @@ let newPhoto = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		response.render('entries/NewPhoto')
+		() => {
+			response.render('entries/NewPhoto')
+		}
 	)
 }
 
 let sentPhoto = (request, response) => {
 
+	let object = request.file.filename;
+	let reason = request.body.reason;
+	let templateId = request.body.templateId;
+
 	userAuthentication(
 		request, 
 		response, 
 		() => {
-			console.log(request.file.filename);
-			console.log(request.body.reason);
-			message = "Photo uploaded.";
-		    response.render('Message', {message});
+			db.journals.sentPhoto(object, reason, templateId, currentUserId, (results) => {
+
+				let info = [];
+
+				let message = {message: "You have posted the following photo"};
+
+				info.push(message);
+				info.push(results);
+
+				response.render('entries/LatestPhoto', info);
+			});	
 		}
 	)
 }
-
-//template for photo posts
-//view for photo post
-//response.render for photo post
 
 /**
 * ===========================================

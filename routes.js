@@ -44,9 +44,11 @@ module.exports = (app, db, upload) => {
   app.post('/journals/search', journals.search);
   app.get('/journals/photo/new', journals.newPhoto);
   app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
-  //issues with passing upload
 
-
+  //show past photos
+  //edit photos
+  //delete photos
+  
   //multiple entries
   //sortby template
 

@@ -8,6 +8,7 @@ class NewJournal extends React.Component {
       <NavBar>
         <form action="/journals/photo/sent" encType="multipart/form-data" method="post">
           <input type="file" name="file-to-upload" />
+          <input type="hidden" name="templateId" id="templateId" value='5' />
           <input type="text" className="form-control" name="reason" id="reason" placeholder="Thoughts?"/>
           <input type="submit" value="Upload" />
         </form>

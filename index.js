@@ -8,7 +8,7 @@ const app = express();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // Set up middleware
+app.use(express.static(__dirname + "/public/"));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(express.urlencoded({
