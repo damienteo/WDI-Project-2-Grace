@@ -1,7 +1,7 @@
 var React = require("react");
 var NavBar = require('../NavBar');
 
-class LatestJournal extends React.Component {
+class LatestPhoto extends React.Component {
   render() {
 
     var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -15,11 +15,11 @@ class LatestJournal extends React.Component {
     return (
       <NavBar>
         <h5>{message}:</h5>
-        <div class="card d-inline-block m-2" style={{  width: '20rem'}}>
-          <img src={object} class="card-img-top" alt="Image not found" />
-          <div class="card-body">
-            <h5 class="card-title">{reason}</h5>
-            <p class="card-text">On {date} at {time}</p>
+        <div className="card d-inline-block m-2" style={{  width: '20rem'}}>
+          <img src={object} className="card-img-top" alt="Image not found" />
+          <div className="card-body">
+            <h5 className="card-title">{reason}</h5>
+            <p className="card-text">On {date} at {time}</p>
           </div>
         </div>
       </NavBar>
@@ -27,7 +27,7 @@ class LatestJournal extends React.Component {
   }
 }
 
-module.exports = LatestJournal;
+module.exports = LatestPhoto;
 
 // <a href={"/edit/song/" + songs.id}class="btn btn-secondary mr-2  mb-2">Edit</a>
 //             <form method="POST" action={"/delete/song/" + songs.id + "?_method=DELETE"} class = "d-inline-block">

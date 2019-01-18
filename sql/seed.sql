@@ -42,3 +42,4 @@ INSERT INTO entries(object, reason, template_id, user_id) VALUES('Find this post
 INSERT INTO entries(object, reason, template_id, user_id) VALUES('cccscsacs', 'Find this post', 1, 3);
 INSERT INTO entries(object, reason, template_id, user_id) VALUES('1234567', 'ccsdcsdc', 1, 3);
 INSERT INTO entries(object, reason, template_id, user_id) VALUES('cccscsacs', '1234567', 1, 3);
+INSERT INTO entries(object, reason, template_id, user_id) VALUES('Newest Entry', 'Newest Entry', 1, 3);

@@ -86,6 +86,8 @@ module.exports = (dbPoolInstance) => {
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
+      AND entries.template_id < 5
+      OR entries.template_id > 5
       ORDER BY entries.created_at DESC`
       , (error, result) => {
 
@@ -174,6 +176,8 @@ module.exports = (dbPoolInstance) => {
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
+      AND entries.template_id < 5
+      OR entries.template_id > 5
       ORDER BY entries.created_at ${order}`
       , (error, result) => {
 
@@ -242,6 +246,28 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+    let photos = (currentUserId, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      FROM entries 
+      INNER JOIN templates 
+      ON entries.template_id = templates.id 
+      WHERE entries.user_id = ${currentUserId}
+      AND entries.template_id = 5
+      ORDER BY entries.created_at DESC`
+      , (error, result) => {
+
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        callback(entries);  
+
+    });
+  }
+
   return {
   	newJournal,
     randomJournal,
@@ -252,6 +278,7 @@ module.exports = (dbPoolInstance) => {
     editedEntry,
     sortby,
     search,
-    sentPhoto
+    sentPhoto,
+    photos
   };
 }

@@ -249,6 +249,20 @@ let sentPhoto = (request, response) => {
 	)
 }
 
+
+let photos = (request, response) => {
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.photos(currentUserId, (results) => {
+				response.render('entries/Photos', results);
+			});
+		}
+	) 
+}
+
 /**
 * ===========================================
 * Export controller functions as a module
@@ -265,7 +279,8 @@ let sentPhoto = (request, response) => {
 		search,
 		randomJournal,
 		newPhoto,
-		sentPhoto
+		sentPhoto,
+		photos
 	};
 
 }

@@ -23,6 +23,8 @@ module.exports = (app, db, upload) => {
   //pending profile statistics in profile
   //delete user?
   //customise templates
+  //-how to structure the database
+  //-how to show posts using customised templates
   //email reminders
   //responsive navbar
 
@@ -44,11 +46,14 @@ module.exports = (app, db, upload) => {
   app.post('/journals/search', journals.search);
   app.get('/journals/photo/new', journals.newPhoto);
   app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
+   app.get('/journals/photos', journals.photos);
 
   //show past photos
   //edit photos
   //delete photos
-  
+
+  //showing photos and journals together in one page other than through columns
+
   //multiple entries
   //sortby template
 
