@@ -1,7 +1,7 @@
 var React = require("react");
 var NavBar = require('../NavBar');
 
-class NewJournal extends React.Component {
+class RandomJournal extends React.Component {
   render() {
 
     let inputs = this.props.inputs.map( input => {
@@ -34,4 +34,8 @@ class NewJournal extends React.Component {
   }
 }
 
-module.exports = NewJournal;
+module.exports = RandomJournal;
+
+var React = require("react");
+var NavBar = require('../NavBar');
+

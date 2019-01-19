@@ -60,17 +60,11 @@ let newJournal = (request, response) => {
 
 let randomJournal = (request, response) => {
 
-	let templateChoice = request.body.id;
-
-	if (templateChoice == null) {
-		templateChoice = Math.floor((Math.random() * 32) + 6);
-	}
-
 	userAuthentication(
 		request, 
 		response, 
 		() => {
-			db.journals.randomJournal( templateChoice, (journals) => {
+			db.journals.randomJournal( (journals) => {
 				response.render('entries/RandomJournal', journals);
 			});
 		}

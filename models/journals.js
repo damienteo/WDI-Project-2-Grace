@@ -7,7 +7,7 @@ module.exports = (dbPoolInstance) => {
 
   let newJournal = (templateChoice, callback) => {
 
-    dbPoolInstance.query('SELECT * FROM templates WHERE templates.id < 5', (error, queryResult) => {
+    dbPoolInstance.query(`SELECT * FROM templates WHERE templates.category = 'Basic'`, (error, queryResult) => {
 
       let journals = {};
       journals.templates=[];
@@ -30,16 +30,19 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
-  let randomJournal = (templateChoice, callback) => {
+  let randomJournal = (callback) => {
 
-    dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
+    dbPoolInstance.query(`SELECT * FROM templates WHERE templates.category = 'Random'`, (error, queryResult) => {
+
+      let choices = [];
+      for(let i = 0; i < queryResult.rows.length; i++){
+        choices.push(queryResult.rows[i]);
+      } 
+      let templateChoice = Math.floor(Math.random() * choices.length);
 
       let journals = {};
       journals.inputs=[];
-
-      for(let i = 0; i < queryResult.rows.length; i++){
-        journals.inputs.push(queryResult.rows[i]);
-      } 
+      journals.inputs.push(queryResult.rows[templateChoice]); 
 
       callback(journals);
 

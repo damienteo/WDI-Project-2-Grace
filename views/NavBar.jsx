@@ -7,12 +7,13 @@ class NavBar extends React.Component{
           <html>
             <head>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous" />
-            <link rel="stylesheet" type="text/css" href="styles/style.css" />
+            <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet" />
+            <link rel="stylesheet" type="text/css" href="../styles/style.css" />
             <title>Grace</title>
             </head>
             <body className="container-fluid">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3" >
-                  <a className="navbar-brand" href="/">Grace</a>
+                <nav className="navbar navbar-expand-lg navbar-light bg-white mb-3 rounded fixed-top" >
+                  <a className="navbar-brand" id="graceLogo" href="/">Grace</a>
                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                   </button>
@@ -59,7 +60,7 @@ class NavBar extends React.Component{
                     </form>
                   </div>
                 </nav>
-                <div className="container">
+                <div className="container" id="pushFixed">
                   <div className="row">
                     <div className="col-12">
                       {this.props.children}

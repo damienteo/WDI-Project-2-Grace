@@ -1,7 +1,7 @@
 var React = require("react");
 var NavBar = require('../NavBar');
 
-class NewJournal extends React.Component {
+class NewPhoto extends React.Component {
   render() {
 
     return (
@@ -17,4 +17,4 @@ class NewJournal extends React.Component {
   }
 }
 
-module.exports = NewJournal;
+module.exports = NewPhoto;

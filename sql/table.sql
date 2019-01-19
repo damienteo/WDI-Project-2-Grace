@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS templates (
     id SERIAL PRIMARY KEY,
     name TEXT,
     starter TEXT,
-    addon TEXT
+    addon TEXT,
+    category TEXT
 );
 
 CREATE TABLE IF NOT EXISTS entries (
@@ -21,7 +22,3 @@ CREATE TABLE IF NOT EXISTS entries (
     created_at TIME DEFAULT CURRENT_TIME
 );
 
--- categories: basic, random, customised
-
--- SELECT to_char(created_on, 'FMMonth FMDDth, YYYY') FROM entries;
--- SELECT to_char(created_at, 'HH12:MI:SS AM') FROM entries;
