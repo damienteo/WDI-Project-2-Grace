@@ -12,6 +12,12 @@ CREATE TABLE IF NOT EXISTS templates (
     category TEXT
 );
 
+CREATE TABLE IF NOT EXISTS userCustomise (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users (id),
+    template_id INTEGER REFERENCES templates (id)
+);
+
 CREATE TABLE IF NOT EXISTS entries (
     id SERIAL PRIMARY KEY,
     object TEXT,

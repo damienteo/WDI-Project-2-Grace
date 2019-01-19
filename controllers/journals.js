@@ -50,7 +50,7 @@ let newJournal = (request, response) => {
 		request, 
 		response, 
 		() => {
-			db.journals.newJournal( templateChoice, (journals) => {
+			db.journals.newJournal( templateChoice, currentUserId, (journals) => {
 				response.render('entries/NewJournal', journals);
 			});
 		}
@@ -257,6 +257,37 @@ let photos = (request, response) => {
 	) 
 }
 
+
+let customise = (request, response) => {
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.customise(currentUserId, (results) => {
+				response.render('entries/Customise', results);
+			});
+		}
+	)
+}
+
+let createTemplate = (request, response) => {
+
+	let name = request.body.name;
+	let starter = request.body.starter;
+	let addon = request.body.addon;
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.createTemplate(name, starter, addon, currentUserId, (results) => {
+				response.render('entries/Customise', results);
+			});	
+		}
+	)
+}
+
 /**
 * ===========================================
 * Export controller functions as a module
@@ -274,7 +305,9 @@ let photos = (request, response) => {
 		randomJournal,
 		newPhoto,
 		sentPhoto,
-		photos
+		photos,
+		customise,
+		createTemplate
 	};
 
 }

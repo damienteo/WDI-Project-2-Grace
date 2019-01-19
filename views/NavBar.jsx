@@ -34,7 +34,9 @@ class NavBar extends React.Component{
                           <div className="dropdown-divider"></div>
                           <a className="dropdown-item" href="/journals/random/new">New Random Entry</a>
                           <div className="dropdown-divider"></div>
-                          <a className="dropdown-item" href="/journals/history">History</a>
+                          <a className="dropdown-item" href="/journals/photo/new">Post Photo</a>
+                          <div className="dropdown-divider"></div>
+                          <a className="dropdown-item" href="/customise/journals">Customise Entries</a>
                         </div>
                       </li>
                       <li className="nav-item dropdown">
@@ -46,6 +48,9 @@ class NavBar extends React.Component{
                           <div className="dropdown-divider"></div>
                           <a className="dropdown-item" href="/journals/photos">Past Photos</a>
                         </div>
+                      </li>
+                      <li className="nav-item active">
+                        <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
                       </li>
                       <li className="nav-item active">
                         <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>

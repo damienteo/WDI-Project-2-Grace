@@ -5,16 +5,33 @@
  */
 module.exports = (dbPoolInstance) => {
 
-  let newJournal = (templateChoice, callback) => {
+  let newJournal = (templateChoice, currentUserId, callback) => {
 
-    dbPoolInstance.query(`SELECT * FROM templates WHERE templates.category = 'Basic'`, (error, queryResult) => {
+    dbPoolInstance.query(`
+      SELECT * 
+      FROM templates 
+      WHERE templates.category = 'Basic'
+      `, (error, basicResult) => {
 
       let journals = {};
       journals.templates=[];
 
-      for(let i = 0; i < queryResult.rows.length; i++){
-            journals.templates.push(queryResult.rows[i]);
+      for(let i = 0; i < basicResult.rows.length; i++){
+        journals.templates.push(basicResult.rows[i]);
       }
+
+      dbPoolInstance.query(`
+        SELECT templates.* 
+        FROM templates 
+        INNER JOIN userCustomise
+        ON templates.id = userCustomise.template_id
+        WHERE userCustomise.user_id= ${currentUserId}
+        `, (error, customiseResult) => {
+        for(let i = 0; i < customiseResult.rows.length; i++){
+              journals.templates.push(customiseResult.rows[i]);
+        }
+      console.log(journals.templates);
+      })
 
       dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
 
@@ -40,7 +57,7 @@ module.exports = (dbPoolInstance) => {
       } 
       let templateChoice = Math.floor(Math.random() * choices.length);
 
-      let journals = {};
+      let journals = {}; 
       journals.inputs=[];
       journals.inputs.push(queryResult.rows[templateChoice]); 
 
@@ -271,6 +288,68 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  let customise = (currentUserId, callback) => {
+    dbPoolInstance.query(`
+      SELECT * 
+      FROM templates 
+      INNER JOIN userCustomise 
+      ON templates.id = userCustomise.template_id 
+      WHERE userCustomise.user_id = ${currentUserId}
+      ORDER BY templates.id DESC`
+      , (error, result) => {
+
+        let templates = {};
+        templates.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+          templates.list.push(result.rows[i]);
+        }
+        callback(templates);  
+    });
+  }
+
+  let createTemplate = (name, starter, addon, currentUserId, callback) => {
+
+    const values = [
+      name,
+      starter,
+      addon
+    ]
+
+    dbPoolInstance.query(`
+      INSERT INTO templates(name, starter, addon, category) 
+      VALUES ($1, $2, $3, 'Customised') 
+      RETURNING *`
+      , values, (error, templateResult) => {
+
+       let latestTemplateId = templateResult.rows[0].id;
+
+        dbPoolInstance.query(`
+          INSERT INTO userCustomise(user_id, template_id) 
+          VALUES (${currentUserId}, ${latestTemplateId}) 
+          RETURNING *`
+          , (error, queryResult) => {
+            console.log("current user id" +currentUserId);
+
+          dbPoolInstance.query(`
+            SELECT * 
+            FROM templates 
+            INNER JOIN userCustomise 
+            ON templates.id = userCustomise.template_id 
+            WHERE userCustomise.user_id = ${currentUserId}
+            ORDER BY templates.id DESC`
+            , (error, result) => {
+
+              let templates = {};
+              templates.list=[];
+              for(let i = 0; i < result.rows.length; i++){
+                templates.list.push(result.rows[i]);
+              }
+              callback(templates);  
+          });
+        });
+      });
+    }
+
   return {
   	newJournal,
     randomJournal,
@@ -282,6 +361,8 @@ module.exports = (dbPoolInstance) => {
     sortby,
     search,
     sentPhoto,
-    photos
+    photos,
+    customise,
+    createTemplate
   };
 }

@@ -36,6 +36,4 @@ class RandomJournal extends React.Component {
 
 module.exports = RandomJournal;
 
-var React = require("react");
-var NavBar = require('../NavBar');
 
