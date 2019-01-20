@@ -50,12 +50,17 @@ let loggedin = ( username, password, callback) => {
 let profile = (currentUserId, callback) => {
 
     dbPoolInstance.query(`
-      SELECT entries.id, templates.category 
-      FROM entries
-      INNER JOIN templates
-      ON entries.template_id = templates.id 
-      WHERE entries.user_id = ${currentUserId}
-      `, (error, basicResult) => {
+    	SELECT 
+	    	entries.id,
+	       	entries.created_on,
+	    	to_char(entries.created_at, 'HH12:MI:SS AM'), 
+	     	templates.category
+    	FROM entries
+    	INNER JOIN templates
+    	ON entries.template_id = templates.id 
+    	WHERE entries.user_id = ${currentUserId}
+    	ORDER BY entries.created_at DESC
+    	`, (error, basicResult) => {
 
       	let basicCount = 0;
       	let randomCount = 0;
@@ -74,8 +79,27 @@ let profile = (currentUserId, callback) => {
     		}
      	}
 
-     	let results=[];
-     	results.push(basicCount, randomCount, customisedCount, photoCount);
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+        const lastEntry = basicResult.rows.length - 1;
+
+        let firstDay = basicResult.rows[0].created_on.toLocaleDateString("en-US", dateOptions);
+        let firstTime = basicResult.rows[0].to_char;
+        let lastDay = basicResult.rows[lastEntry].created_on.toLocaleDateString("en-US", dateOptions);
+        let lastTime = basicResult.rows[lastEntry].to_char;
+
+     	let results = {};
+     	results.list=[];
+     	results.list.push(
+     		{basic:basicCount, 
+     		random:randomCount,
+     		customised:customisedCount, 
+     		photo:photoCount,
+            firstDay,
+            firstTime,
+            lastDay,
+            lastTime}
+     	);
 
      	callback(null, results);
     });

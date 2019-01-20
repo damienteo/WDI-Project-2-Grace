@@ -44,37 +44,25 @@ module.exports = (app, db, upload) => {
   // CRUD photos
   app.get('/photo/new', journals.newPhoto);
   app.post('/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
-
-
-
 };
 
 
-//profile statistics
-// - relevant functions
-// - - date and time of first and last post (array.length-1)
-// - - number of basic posts, random posts, custom posts, photo posts
-// - - delete user button
 //profile page
-//fix CSS
-// - button color
-// - styles.css not applying to new random post and new photo page
 
   //responsive navbars - pending decision on the input to decide if/else function if/else function
 
 //index page
 
-
   //edit photos
   //delete photos
+  // - - delete user button
 
 // refactor customised templates
-
-//bugs
-// - new photo and new random entry posts not displaying background
-// - 
+//css for upload photo page
 
  //email reminders
+
+ //mobile ready
 
 //cloudinary
 //herokuapp

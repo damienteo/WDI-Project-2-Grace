@@ -2,14 +2,20 @@ var React = require("react");
 var NavBar = require('../NavBar');
 
 class Profile extends React.Component {
+
   render() {
+
+    const {basic, random, customised, photo, firstDay, firstTime, lastDay, lastTime} = this.props.list[0];
+
     return (
       <NavBar>
         <h1>Here is your profile page:</h1>
-        <p>You have made {this.props[0]} basic entries.</p>
-        <p>You have made {this.props[1]} random entries.</p>
-        <p>You have made {this.props[2]} customised entries.</p>
-        <p>You have posted {this.props[3]} photos.</p>
+        <p>You have made {basic} basic entries.</p>
+        <p>You have made {random} random entries.</p>
+        <p>You have made {customised} customised entries.</p>
+        <p>You have posted {photo} photos.</p>
+        <p>Your first post was on {firstDay} at {firstTime}.</p>
+        <p>Your most recent post was on {lastDay} at {lastTime}.</p>
       </NavBar>
     );
   }
