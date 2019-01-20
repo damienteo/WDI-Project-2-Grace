@@ -23,7 +23,7 @@ class RandomJournal extends React.Component {
 
     return (
       <NavBar>
-        <form method="GET" action={"/journals/random/new"} id="entry">
+        <form method="GET" action={"/journals/random"} id="entry">
           <div className="input-group-append mb-3">
             <button className="btn btn-outline-info" type="submit">Generate New Prompt</button>
           </div>

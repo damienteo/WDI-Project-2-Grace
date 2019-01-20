@@ -8,7 +8,9 @@ class Message extends React.Component {
 
     return (
       <NavBar>
-        <h1>{message}</h1>
+      	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		  <strong>{message}</strong>
+		</div>
       </NavBar>
     );
   }

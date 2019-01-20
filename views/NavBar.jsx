@@ -42,13 +42,13 @@ class NavBar extends React.Component{
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a className="dropdown-item" href="/journals/new">New Entry</a>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="/journals/random/new">New Random Entry</a>
+                      <a className="dropdown-item" href="/journals/random">New Random Entry</a>
                       <div className="dropdown-divider"></div>
                       <a className="dropdown-item" href="/customise/journals">Customise Entries</a>
                     </div>
                   </li>
                   <li className="nav-item active">
-                    <a className="nav-link" href="/journals/photo/new">Post Photo<span className="sr-only">(current)</span></a>
+                    <a className="nav-link" href="/photo/new">Post Photo<span className="sr-only">(current)</span></a>
                   </li>
                   <li className="nav-item active">
                     <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>

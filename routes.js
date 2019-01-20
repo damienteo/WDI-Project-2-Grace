@@ -29,7 +29,7 @@ module.exports = (app, db, upload) => {
 
  // CRUD journals
   app.get('/journals/new', journals.newJournal);
-  app.get('/journals/random/new', journals.randomJournal);
+  app.get('/journals/random', journals.randomJournal);
   app.post('/journals/new', journals.newJournal);
   app.post('/journals/complete', journals.complete);
   app.get('/journals/history', journals.history);
@@ -42,8 +42,8 @@ module.exports = (app, db, upload) => {
   app.post('/customise/complete', journals.createTemplate);
 
   // CRUD photos
-  app.get('/journals/photo/new', journals.newPhoto);
-  app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
+  app.get('/photo/new', journals.newPhoto);
+  app.post('/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
 
 
 
@@ -63,6 +63,8 @@ module.exports = (app, db, upload) => {
   //responsive navbars - pending decision on the input to decide if/else function if/else function
 
 //index page
+
+
   //edit photos
   //delete photos
 

@@ -140,14 +140,8 @@ let deleteEntry = (request, response) => {
 		() => {
 			db.journals.deleteEntry(entryChoice, (results) => {
 
-				let info = [];
-
-				let message = {message: "You have deleted the following post"};
-
-				info.push(message);
-				info.push(results);
-
-				response.render('entries/LatestJournal', info);
+				message = "You have deleted the entry";
+	     		response.render('Message', {message});
 			});	
 		}
 	) 
