@@ -14,12 +14,12 @@ class PastJournal extends React.Component {
       if (category === 'Photo') {
         let object = "../../uploads/"+journal.object;
         return (
-          <div className="card d-inline-block m-2" style={{  width: '20rem'}} key={id}>
+          <div className="card m-2" style={{  width: '95%'}} key={id}>
             <img src={object} className="card-img-top img-fluid" alt="Image not found" id="cardPhoto" />
             <div className="card-body">
               <h5 className="card-title">{reason}</h5>
             </div>
-             <div class="card-footer text-muted">
+             <div className="card-footer text-muted" id="mutedSection">
               Posted on: <br /> {date} at {time}
             </div>
           </div>
@@ -27,11 +27,11 @@ class PastJournal extends React.Component {
       } else {
         let {object} = journal;
         return (
-          <div class="card text-center d-inline-block m-2" style={{  width: '20rem',}} key={id}>
-            <div class="card-header">
+          <div class="card text-center m-2" style={{  width: '95%'}} key={id}>
+            <div class="card-header" id="mutedSection">
               {category}
             </div>
-            <div class="card-body" style={{  height: '16.6rem',}}>
+            <div class="card-body">
               <h5 class="card-title">{starter}: <strong>{object}</strong></h5>
               <p class="card-text">{addon}: <strong>{reason}</strong></p>
               <form method="POST" action="/edit/journal/" className = "d-inline-block">
@@ -43,7 +43,7 @@ class PastJournal extends React.Component {
                   <button type="submit" className="btn btn-danger">Delete</button>
               </form>
             </div>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-muted" id="mutedSection">
               Posted on: <br /> {date} at {time}
             </div>
           </div>
@@ -53,24 +53,30 @@ class PastJournal extends React.Component {
 
     return (
       <NavBar>
-        <form method="POST" action={"/journals/sortby"} id="pastJournalsForm" className="mb-3">
-          <select className="custom-select" name="sort">
-            <option selected>Choose...</option>
-            <option value="dateAsc">
-              Recent entries first
-            </option>
-            <option value="dateDesc">
-              Older entries first
-            </option>
-          </select>
-          <div className="input-group-append">
-            <button className="btn btn-outline-info" type="submit">Sort Entries</button>
+        <div className="row">
+          <div className="col-2 d:inline-block m-3 text-center">
+            <div id="fixedPosition">
+              <form method="POST" action={"/journals/sortby"} id="pastJournalsForm" className="mb-3 ">
+                <select className="custom-select" name="sort" style={{width:'10rem'}}>
+                  <option selected>Choose...</option>
+                  <option value="dateAsc">
+                    Recent entries first
+                  </option>
+                  <option value="dateDesc">
+                    Older entries first
+                  </option>
+                </select>
+                <div className="input-group-append">
+                  <button className="btn btn-outline-info" type="submit">Sort Entries</button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
-        <div id="journalsCentered">
+        <div className="col-9 d:inline-block">
           {journals}
         </div>
-      </NavBar>
+      </div>
+    </NavBar>
     );
   }
 }

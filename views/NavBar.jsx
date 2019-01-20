@@ -26,8 +26,8 @@ class NavBar extends React.Component{
         <link rel="stylesheet" type="text/css" href="../styles/style.css" />
         <title>Grace</title>
         </head>
-        <body className="container-fluid">
-            <nav className="navbar navbar-expand-lg navbar-light bg-white mb-3 rounded fixed-top" >
+        <body>
+            <nav className="navbar navbar-expand-lg navbar-light bg-white mb-3 rounded fixed-top border-bottom" >
               <a className="navbar-brand" id="graceLogo" href="/">Grace</a>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -44,20 +44,11 @@ class NavBar extends React.Component{
                       <div className="dropdown-divider"></div>
                       <a className="dropdown-item" href="/journals/random/new">New Random Entry</a>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="/journals/photo/new">Post Photo</a>
-                      <div className="dropdown-divider"></div>
                       <a className="dropdown-item" href="/customise/journals">Customise Entries</a>
                     </div>
                   </li>
-                  <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Photos
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a className="dropdown-item" href="/journals/photo/new">Post Photo</a>
-                      <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="/journals/photos">Past Photos</a>
-                    </div>
+                  <li className="nav-item active">
+                    <a className="nav-link" href="/journals/photo/new">Post Photo<span className="sr-only">(current)</span></a>
                   </li>
                   <li className="nav-item active">
                     <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
@@ -75,12 +66,8 @@ class NavBar extends React.Component{
                 </form>
               </div>
             </nav>
-            <div className="container" id="pushFixed">
-              <div className="row">
-                <div className="col-12 ">
-                  {this.props.children}
-                </div>
-              </div>
+            <div className="container-fluid" id="pushFixed" >
+              {this.props.children}
             </div>
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossOrigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossOrigin="anonymous"></script>

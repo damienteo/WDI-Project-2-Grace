@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: rgba(79, 193, 232, 0.5);
+    background-color: rgba(240,248,255);
 }
 
 #graceLogo {
@@ -20,6 +20,7 @@ body {
 	width: auto;
 	display: block;
 	margin: auto;
+	margin-top: 1rem;
 }
 
 #journalsCentered{
@@ -27,4 +28,12 @@ body {
     float: none;
     margin: 0 auto;
     width: 63rem;
+}
+
+#mutedSection {
+	background-color: rgb(255, 250, 205);
+}
+
+#fixedPosition {
+	position: fixed;
 }
