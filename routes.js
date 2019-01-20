@@ -44,17 +44,12 @@ module.exports = (app, db, upload) => {
   // CRUD photos
   app.get('/journals/photo/new', journals.newPhoto);
   app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
-  app.get('/journals/photos', journals.photos);
 
 
 
 };
 
 
-
-//unified history
-// - if template = photo
-// other than sort by asc and desc, also sort by catergory (total, basic, customised, random, photos)
 //profile statistics
 // - relevant functions
 // - - date and time of first and last post (array.length-1)
@@ -62,8 +57,6 @@ module.exports = (app, db, upload) => {
 // - - delete user button
 //profile page
 //fix CSS
-// - display of posts
-// - post color
 // - button color
 // - styles.css not applying to new random post and new photo page
 
@@ -72,6 +65,12 @@ module.exports = (app, db, upload) => {
 //index page
   //edit photos
   //delete photos
+
+// refactor customised templates
+
+//bugs
+// - new photo and new random entry posts not displaying background
+// - 
 
  //email reminders
 

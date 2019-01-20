@@ -15,7 +15,7 @@ body {
 }
 
 #cardPhoto {
-	height: 15rem;
+	max-height: 25rem;
 	overflow:hidden;
 	width: auto;
 	display: block;

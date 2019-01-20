@@ -55,7 +55,17 @@ let newJournal = (request, response) => {
 			});
 		}
 	)
+}
 
+let newPhoto = (request, response) => {
+
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			response.render('entries/NewPhoto')
+		}
+	)
 }
 
 let randomJournal = (request, response) => {
@@ -84,14 +94,24 @@ let complete = (request, response) => {
 		() => {
 			db.journals.complete( object, reason, template_id, currentUserId, (results) => {
 
-				let info = [];
+				response.render('entries/PastJournals', results);
+			});	
+		}
+	)
+}
 
-				let message = {message: "You have inserted the following post"};
-				info.push(message);
+let sentPhoto = (request, response) => {
 
-				info.push(results);
+	let object = request.file.filename;
+	let reason = request.body.reason;
+	let templateId = request.body.templateId;
 
-				response.render('entries/LatestJournal', info);
+	userAuthentication(
+		request, 
+		response, 
+		() => {
+			db.journals.sentPhoto(object, reason, templateId, currentUserId, (results) => {
+				response.render('entries/PastJournals', results);
 			});	
 		}
 	)
@@ -175,17 +195,13 @@ let editedEntry = (request, response) => {
 
 let sortby = (request, response) => {
 
-	if (request.body.sort == "dateAsc") {
-        	order = 'ASC';
-        } else if (request.body.sort == "dateDesc"){
-    		order = 'DESC';
-        }
+	let choice = request.body.choice;
 
 	userAuthentication(
 		request, 
 		response, 
 		() => {
-			db.journals.sortby(currentUserId, order, (results) => {
+			db.journals.sortby(currentUserId, choice, (results) => {
 				response.render('entries/PastJournals', results);
 			});
 		}
@@ -207,55 +223,19 @@ let search = (request, response) => {
 	) 
 }
 
-let newPhoto = (request, response) => {
 
-	userAuthentication(
-		request, 
-		response, 
-		() => {
-			response.render('entries/NewPhoto')
-		}
-	)
-}
+// let photos = (request, response) => {
 
-let sentPhoto = (request, response) => {
-
-	let object = request.file.filename;
-	let reason = request.body.reason;
-	let templateId = request.body.templateId;
-
-	userAuthentication(
-		request, 
-		response, 
-		() => {
-			db.journals.sentPhoto(object, reason, templateId, currentUserId, (results) => {
-
-				let info = [];
-
-				let message = {message: "You have posted the following photo"};
-
-				info.push(message);
-				info.push(results);
-
-				response.render('entries/LatestPhoto', info);
-			});	
-		}
-	)
-}
-
-
-let photos = (request, response) => {
-
-	userAuthentication(
-		request, 
-		response, 
-		() => {
-			db.journals.photos(currentUserId, (results) => {
-				response.render('entries/Photos', results);
-			});
-		}
-	) 
-}
+// 	userAuthentication(
+// 		request, 
+// 		response, 
+// 		() => {
+// 			db.journals.photos(currentUserId, (results) => {
+// 				response.render('entries/Photos', results);
+// 			});
+// 		}
+// 	) 
+// }
 
 
 let customise = (request, response) => {
@@ -305,7 +285,6 @@ let createTemplate = (request, response) => {
 		randomJournal,
 		newPhoto,
 		sentPhoto,
-		photos,
 		customise,
 		createTemplate
 	};

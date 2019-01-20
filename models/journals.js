@@ -30,7 +30,6 @@ module.exports = (dbPoolInstance) => {
         for(let i = 0; i < customiseResult.rows.length; i++){
               journals.templates.push(customiseResult.rows[i]);
         }
-      console.log(journals.templates);
       })
 
       dbPoolInstance.query(`SELECT * FROM templates WHERE id = ${templateChoice}`, (error, queryResult) => {
@@ -84,15 +83,71 @@ module.exports = (dbPoolInstance) => {
         let latestEntryId = queryResult.rows[0].id;
 
         dbPoolInstance.query(`
-          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
+          SELECT 
+            entries.*, 
+            to_char(entries.created_at, 'HH12:MI:SS AM'), 
+            templates.name, 
+            templates.starter, 
+            templates.addon, 
+            templates.id AS templateID,
+            templates.category
           FROM entries 
           INNER JOIN templates 
           ON entries.template_id = templates.id 
           WHERE entries.id = ${latestEntryId}`
-          , (error, result) => {
+          , (error, result) => {  
 
-          let results = result.rows[0];
-          callback(results);
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        console.log(entries);
+        callback(entries);
+          
+        });
+    });
+  }
+
+   let sentPhoto = (object, reason, templateId, currentUserId, callback) => {
+
+    const values = [
+      currentUserId,
+      object, 
+      reason, 
+      templateId, 
+    ]
+
+    dbPoolInstance.query(`
+      INSERT INTO entries(user_id, object, reason, template_id) 
+      VALUES ($1, $2, $3, $4) 
+      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+      , values, (error, queryResult) => {
+
+       let latestEntryId = queryResult.rows[0].id;
+
+        dbPoolInstance.query(`
+          SELECT 
+            entries.*, 
+            to_char(entries.created_at, 'HH12:MI:SS AM'), 
+            templates.name, 
+            templates.starter, 
+            templates.addon, 
+            templates.id AS templateID,
+            templates.category
+          FROM entries 
+          INNER JOIN templates 
+          ON entries.template_id = templates.id 
+          WHERE entries.id = ${latestEntryId}`
+          , (error, result) => {  
+
+        let entries = {};
+        entries.list=[];
+        for(let i = 0; i < result.rows.length; i++){
+                entries.list.push(result.rows[i]);
+        }
+        console.log(entries);
+        callback(entries);
           
         });
     });
@@ -113,7 +168,7 @@ module.exports = (dbPoolInstance) => {
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
-      ORDER BY entries.created_at ASC`
+      ORDER BY entries.created_at DESC`
       , (error, result) => {
 
         let entries = {};
@@ -193,7 +248,40 @@ module.exports = (dbPoolInstance) => {
 
   }
 
-  let sortby = (currentUserId, order, callback) => {
+  let sortby = (currentUserId, choice, callback) => {
+
+    let sort = choice;
+
+    switch(sort) {
+      case "Recent":
+        text = `ORDER BY entries.created_at DESC`;
+        break;
+      case "Older":
+        text = `ORDER BY entries.created_at ASC`;
+        break;
+      case "Basic":
+        text = `
+          AND templates.category = 'Basic'
+          ORDER BY entries.created_at DESC`;
+        break;
+      case "Random":
+        text = `
+          AND templates.category = 'Random'
+          ORDER BY entries.created_at DESC`;
+        break;
+      case "Customised":
+        text = `
+          AND templates.category = 'Customised'
+          ORDER BY entries.created_at DESC`;
+        break;
+      case "Photo":
+        text = `
+          AND templates.category = 'Photo'
+          ORDER BY entries.created_at DESC`;
+        break;
+      default:
+        text = "No value found";
+    }
 
     dbPoolInstance.query(`
       SELECT 
@@ -208,7 +296,7 @@ module.exports = (dbPoolInstance) => {
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
-      ORDER BY entries.created_at ${order}`
+      ${text}`
       , (error, result) => {
 
         let entries = {};
@@ -246,57 +334,27 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
-  let sentPhoto = (object, reason, templateId, currentUserId, callback) => {
+  //   let photos = (currentUserId, callback) => {
 
-    const values = [
-      currentUserId,
-      object, 
-      reason, 
-      templateId, 
-    ]
+  //   dbPoolInstance.query(`
+  //     SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+  //     FROM entries 
+  //     INNER JOIN templates 
+  //     ON entries.template_id = templates.id 
+  //     WHERE entries.user_id = ${currentUserId}
+  //     AND entries.template_id = 5
+  //     ORDER BY entries.created_at DESC`
+  //     , (error, result) => {
 
-    dbPoolInstance.query(`
-      INSERT INTO entries(user_id, object, reason, template_id) 
-      VALUES ($1, $2, $3, $4) 
-      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
-      , values, (error, queryResult) => {
+  //       let entries = {};
+  //       entries.list=[];
+  //       for(let i = 0; i < result.rows.length; i++){
+  //               entries.list.push(result.rows[i]);
+  //       }
+  //       callback(entries);  
 
-       let latestEntryId = queryResult.rows[0].id;
-
-        dbPoolInstance.query(`
-          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM') 
-          FROM entries 
-          WHERE entries.id = ${latestEntryId}`
-          , (error, result) => {
-
-          let results = result.rows[0];
-          callback(results);
-          
-        });
-    });
-  }
-
-    let photos = (currentUserId, callback) => {
-
-    dbPoolInstance.query(`
-      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
-      FROM entries 
-      INNER JOIN templates 
-      ON entries.template_id = templates.id 
-      WHERE entries.user_id = ${currentUserId}
-      AND entries.template_id = 5
-      ORDER BY entries.created_at DESC`
-      , (error, result) => {
-
-        let entries = {};
-        entries.list=[];
-        for(let i = 0; i < result.rows.length; i++){
-                entries.list.push(result.rows[i]);
-        }
-        callback(entries);  
-
-    });
-  }
+  //   });
+  // }
 
   let customise = (currentUserId, callback) => {
     dbPoolInstance.query(`
@@ -338,7 +396,6 @@ module.exports = (dbPoolInstance) => {
           VALUES (${currentUserId}, ${latestTemplateId}) 
           RETURNING *`
           , (error, queryResult) => {
-            console.log("current user id" +currentUserId);
 
           dbPoolInstance.query(`
             SELECT * 
@@ -371,7 +428,6 @@ module.exports = (dbPoolInstance) => {
     sortby,
     search,
     sentPhoto,
-    photos,
     customise,
     createTemplate
   };
