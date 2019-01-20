@@ -37,3 +37,7 @@ body {
 #fixedPosition {
 	position: fixed;
 }
+
+#lastLineAlign {
+	text-align-last: center;
+}

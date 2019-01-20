@@ -167,7 +167,7 @@ module.exports = (dbPoolInstance) => {
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
-      ORDER BY entries.created_at DESC`
+      ORDER BY entries.created_on DESC`
       , (error, result) => {
 
         let entries = {};
@@ -253,30 +253,30 @@ module.exports = (dbPoolInstance) => {
 
     switch(sort) {
       case "Recent":
-        text = `ORDER BY entries.created_at DESC`;
+        text = `ORDER BY entries.created_on DESC`;
         break;
       case "Older":
-        text = `ORDER BY entries.created_at ASC`;
+        text = `ORDER BY entries.created_on ASC`;
         break;
       case "Basic":
         text = `
           AND templates.category = 'Basic'
-          ORDER BY entries.created_at DESC`;
+          ORDER BY entries.created_on DESC`;
         break;
       case "Random":
         text = `
           AND templates.category = 'Random'
-          ORDER BY entries.created_at DESC`;
+          ORDER BY entries.created_on DESC`;
         break;
       case "Customised":
         text = `
           AND templates.category = 'Customised'
-          ORDER BY entries.created_at DESC`;
+          ORDER BY entries.created_on DESC`;
         break;
       case "Photo":
         text = `
           AND templates.category = 'Photo'
-          ORDER BY entries.created_at DESC`;
+          ORDER BY entries.created_on DESC`;
         break;
       default:
         text = "No value found";

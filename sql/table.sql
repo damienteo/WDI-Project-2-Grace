@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS entries (
     reason TEXT,
     template_id INTEGER REFERENCES templates (id),
     user_id INTEGER REFERENCES users (id),
-    created_on DATE DEFAULT CURRENT_DATE,
+    created_on TIMESTAMPTZ DEFAULT Now(),
     created_at TIME DEFAULT CURRENT_TIME
 );
 

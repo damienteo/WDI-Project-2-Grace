@@ -20,7 +20,7 @@ class PastJournal extends React.Component {
             </div>
             <img src={object} className="card-img-top img-fluid" alt="Image not found" id="cardPhoto" />
             <div className="card-body">
-              <h5 className="card-title">{reason}</h5>
+              <p className="card-text text-justify"  id="lastLineAlign">{reason}</p>
             </div>
              <div className="card-footer text-muted">
               On {date} at {time}
@@ -36,7 +36,7 @@ class PastJournal extends React.Component {
             </div>
             <div className="card-body">
               <h5 className="card-title">{starter}: <strong>{object}</strong></h5>
-              <p className="card-text">{addon}: <strong>{reason}</strong></p>
+              <p className="card-text text-justify" id="lastLineAlign">{addon}: <strong>{reason}</strong></p>
               <form method="POST" action="/edit/journal/" className = "d-inline-block">
                   <input type="hidden" name="id" id="id" value={id} />
                   <button type="submit" className="btn btn-secondary mr-3 ml-3">Edit</button>
