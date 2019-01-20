@@ -47,9 +47,44 @@ let loggedin = ( username, password, callback) => {
     });
 }
 
+let profile = (currentUserId, callback) => {
+
+    dbPoolInstance.query(`
+      SELECT entries.id, templates.category 
+      FROM entries
+      INNER JOIN templates
+      ON entries.template_id = templates.id 
+      WHERE entries.user_id = ${currentUserId}
+      `, (error, basicResult) => {
+
+      	let basicCount = 0;
+      	let randomCount = 0;
+      	let customisedCount = 0;
+      	let photoCount = 0;
+
+    	for(let i = 0; i < basicResult.rows.length; i++){
+    		if (basicResult.rows[i].category == "Basic") {
+    			basicCount++;
+    		} else if (basicResult.rows[i].category == "Random") {
+    			randomCount++;
+    		} else if (basicResult.rows[i].category == "Customised") {
+    			customisedCount++
+    		} else if (basicResult.rows[i].category == "Photo") {
+    			photoCount++
+    		}
+     	}
+
+     	let results=[];
+     	results.push(basicCount, randomCount, customisedCount, photoCount);
+
+     	callback(null, results);
+    });
+}
+
 return {
 	registered,
 	loggedin,
+	profile
 };
 
 }

@@ -217,21 +217,6 @@ let search = (request, response) => {
 	) 
 }
 
-
-// let photos = (request, response) => {
-
-// 	userAuthentication(
-// 		request, 
-// 		response, 
-// 		() => {
-// 			db.journals.photos(currentUserId, (results) => {
-// 				response.render('entries/Photos', results);
-// 			});
-// 		}
-// 	) 
-// }
-
-
 let customise = (request, response) => {
 
 	userAuthentication(

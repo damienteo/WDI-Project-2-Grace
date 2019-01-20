@@ -143,21 +143,27 @@ let logout = (request, response) => {
 
 let profile = (request, response) => {
 
-	cookieAuthentication(request);
+	currentUserId = request.cookies['userId'];
+	currentLog = request.cookies['loggedin'];
+	compareLog = sha256(loginString + currentUserId);
 
 	if( currentLog == null ){
 
 		message = "Please Login";
+		response.render('Message', {message});
 
     }else{
       
 		if( currentLog == compareLog ){
-			message = "Here is your profile";
+			db.users.profile(currentUserId, (error, 	results) => {
+				response.render('users/Profile', results);
+			});
 	    }else{
 	     	message = "Invalid Profile";
+	     	response.render('Message', {message});
 	    }
     }
-    response.render('Message', {message});
+    
 }
 
 

@@ -23,7 +23,7 @@ class PastJournal extends React.Component {
               <h5 className="card-title">{reason}</h5>
             </div>
              <div className="card-footer text-muted">
-              On: {date} at {time}
+              On {date} at {time}
             </div>
           </div>
         );
@@ -47,7 +47,7 @@ class PastJournal extends React.Component {
               </form>
             </div>
             <div className="card-footer text-muted">
-              On: {date} at {time}
+              On {date} at {time}
             </div>
           </div>
         );
