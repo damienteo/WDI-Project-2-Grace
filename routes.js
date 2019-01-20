@@ -46,10 +46,11 @@ module.exports = (app, db, upload) => {
   app.post('/journals/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
   app.get('/journals/photos', journals.photos);
 
-  //edit photos
-  //delete photos
+
 
 };
+
+
 
 //unified history
 // - if template = photo
@@ -65,9 +66,14 @@ module.exports = (app, db, upload) => {
 // - post color
 // - button color
 // - styles.css not applying to new random post and new photo page
+
+  //responsive navbars - pending decision on the input to decide if/else function if/else function
+
 //index page
+  //edit photos
+  //delete photos
 
  //email reminders
-  //responsive navbar
+
 //cloudinary
 //herokuapp

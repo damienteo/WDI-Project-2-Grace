@@ -14,7 +14,7 @@ class Photos extends React.Component {
 
       return (
         <div className="card d-inline-block m-2" style={{  width: '20rem'}} key={id}>
-          <img src={object} class="card-img-top" alt="Image not found" />
+          <img src={object} class="card-img-top img-fluid" alt="Image not found" id="cardPhoto"/>
           <div className="card-body">
             <h5 className="card-title">{reason}</h5>
             <p className="card-text">On {date} at {time}</p>

@@ -13,3 +13,18 @@ body {
 #pushFixed {
 	margin-top: 6rem;
 }
+
+#cardPhoto {
+	height: 15rem;
+	overflow:hidden;
+	width: auto;
+	display: block;
+	margin: auto;
+}
+
+#journalsCentered{
+	display: block;
+    float: none;
+    margin: 0 auto;
+    width: 63rem;
+}

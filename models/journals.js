@@ -101,14 +101,19 @@ module.exports = (dbPoolInstance) => {
   let history = (currentUserId, callback) => {
 
     dbPoolInstance.query(`
-      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      SELECT 
+        entries.*, 
+        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        templates.name, 
+        templates.starter, 
+        templates.addon, 
+        templates.id AS templateID,
+        templates.category
       FROM entries 
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
-      AND entries.template_id < 5
-      OR entries.template_id > 5
-      ORDER BY entries.created_at DESC`
+      ORDER BY entries.created_at ASC`
       , (error, result) => {
 
         let entries = {};
@@ -191,13 +196,18 @@ module.exports = (dbPoolInstance) => {
   let sortby = (currentUserId, order, callback) => {
 
     dbPoolInstance.query(`
-      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      SELECT 
+        entries.*, 
+        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        templates.name, 
+        templates.starter, 
+        templates.addon, 
+        templates.id AS templateID,
+        templates.category
       FROM entries 
       INNER JOIN templates 
       ON entries.template_id = templates.id 
       WHERE entries.user_id = ${currentUserId}
-      AND entries.template_id < 5
-      OR entries.template_id > 5
       ORDER BY entries.created_at ${order}`
       , (error, result) => {
 
