@@ -23,7 +23,7 @@ Spec:
     • A calendar can also be generated in the spec for the user to see if he is meeting goals of weekly or daily entries, and to allow for a friendlier way of accessing past entries.
 
 npm init --y
-npm i express react react-dom pg express-react-views method-override cookie-parser js-sha256 multer
+npm i express react react-dom pg express-react-views method-override cookie-parser js-sha256 multer cloudinary multer-storage-cloudinary
 
 Technical Requirements
 Have at least 2 models (more if they make sense) -- ideally a user model and one that represents the main functional idea for your app

@@ -2,18 +2,32 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser'); 
 const multer = require('multer');
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 
 const db = require('./db');
 const app = express();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+
+const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "uploads",
+  allowedFormats: ["jpg", "png"]
+});
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'public/uploads/')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now())
+//   }
+// })
 const upload = multer({ storage: storage })
 
 // Set up middleware

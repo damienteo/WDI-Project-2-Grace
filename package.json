@@ -4,7 +4,7 @@
   "description": "Grace is a Gratitude Journal, done as part of Project 2 under General Assembly Singapore's Wed Development Immersive. The project will involve languages such as HTML, CSS, Javascript, and packages such as Node, Express, and PostgresSQL.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,20 +18,19 @@
   },
   "homepage": "https://github.com/damienteo/WDI-Project-2-Grace#readme",
   "dependencies": {
+    "cloudinary": "^1.13.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-react-views": "^0.11.0",
     "js-sha256": "^0.9.0",
     "method-override": "^3.0.0",
     "multer": "^1.4.1",
+    "multer-storage-cloudinary": "^2.2.1",
     "pg": "^7.8.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
-  "scripts": {
-    "start": "node index.js"
-  },
-  "engines" : {
-  "node" : "^8.10.0"
+  "engines": {
+    "node": "^8.10.0"
   }
 }
