@@ -59,7 +59,7 @@ let profile = (currentUserId, callback) => {
     	INNER JOIN templates
     	ON entries.template_id = templates.id 
     	WHERE entries.user_id = ${currentUserId}
-    	ORDER BY entries.created_on DESC
+    	ORDER BY entries.created_on ASC
     	`, (error, basicResult) => {
 
       	let basicCount = 0;
