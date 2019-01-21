@@ -53,7 +53,7 @@ let profile = (currentUserId, callback) => {
     	SELECT 
 	    	entries.id,
 	       	entries.created_on,
-	    	to_char(entries.created_at, 'HH12:MI:SS AM'), 
+	    	to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
 	     	templates.category
     	FROM entries
     	INNER JOIN templates
@@ -83,9 +83,9 @@ let profile = (currentUserId, callback) => {
 
         const lastEntry = basicResult.rows.length - 1;
 
-        let firstDay = basicResult.rows[0].created_on.toLocaleDateString("en-US", dateOptions);
+        let firstDay = basicResult.rows[0].created_on.toLocaleDateString("en-SG", dateOptions);
         let firstTime = basicResult.rows[0].to_char;
-        let lastDay = basicResult.rows[lastEntry].created_on.toLocaleDateString("en-US", dateOptions);
+        let lastDay = basicResult.rows[lastEntry].created_on.toLocaleDateString("en-SG", dateOptions);
         let lastTime = basicResult.rows[lastEntry].to_char;
 
      	let results = {};

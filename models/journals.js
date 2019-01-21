@@ -78,7 +78,7 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(`
       INSERT INTO entries(object, reason, template_id, user_id) 
       VALUES ($1, $2, $3, $4) 
-      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+      RETURNING *, to_char(created_at at time zone 'Singapore', 'HH12:MI:SS AM')`
       , values, (error, queryResult) => {
 
         let latestEntryId = queryResult.rows[0].id;
@@ -86,7 +86,7 @@ module.exports = (dbPoolInstance) => {
         dbPoolInstance.query(`
           SELECT 
             entries.*, 
-            to_char(entries.created_at at time zone 'utc' at time zone 'SGT', 'HH12:MI:SS AM'), 
+            to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
             templates.name, 
             templates.starter, 
             templates.addon, 
@@ -122,7 +122,7 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(`
       INSERT INTO entries(user_id, object, reason, template_id) 
       VALUES ($1, $2, $3, $4) 
-      RETURNING *, to_char(created_at, 'HH12:MI:SS AM')`
+      RETURNING *, to_char(created_at at time zone 'Singapore', 'HH12:MI:SS AM')`
       , values, (error, queryResult) => {
 
        let latestEntryId = queryResult.rows[0].id;
@@ -130,7 +130,7 @@ module.exports = (dbPoolInstance) => {
         dbPoolInstance.query(`
           SELECT 
             entries.*, 
-            to_char(entries.created_at, 'HH12:MI:SS AM'), 
+            to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
             templates.name, 
             templates.starter, 
             templates.addon, 
@@ -158,7 +158,7 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(`
       SELECT 
         entries.*, 
-        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
         templates.name, 
         templates.starter, 
         templates.addon, 
@@ -184,7 +184,7 @@ module.exports = (dbPoolInstance) => {
   let deleteEntry = (entryChoice, callback) => {
 
     dbPoolInstance.query(`
-      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      SELECT entries.*, to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
       FROM entries 
       INNER JOIN templates 
       ON entries.template_id = templates.id 
@@ -205,7 +205,7 @@ module.exports = (dbPoolInstance) => {
   let editEntry = (entryChoice, callback) => {
 
     dbPoolInstance.query(`
-      SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
+      SELECT entries.*, to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), templates.name, templates.starter, templates.addon, templates.id AS templateID 
       FROM entries 
       INNER JOIN templates 
       ON entries.template_id = templates.id 
@@ -233,7 +233,7 @@ module.exports = (dbPoolInstance) => {
       , values, (error, queryResult) => {
 
         dbPoolInstance.query(`
-          SELECT entries.*, to_char(entries.created_at, 'HH12:MI:SS AM'), templates.* 
+          SELECT entries.*, to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), templates.* 
           FROM entries 
           INNER JOIN templates 
           ON entries.template_id = templates.id 
@@ -286,7 +286,7 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(`
       SELECT 
         entries.*, 
-        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
         templates.name, 
         templates.starter, 
         templates.addon, 
@@ -313,7 +313,7 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(`
       SELECT entries.*, 
-        to_char(entries.created_at, 'HH12:MI:SS AM'), 
+        to_char(entries.created_at at time zone 'Singapore', 'HH12:MI:SS AM'), 
         templates.name, 
         templates.starter, 
         templates.addon, 
