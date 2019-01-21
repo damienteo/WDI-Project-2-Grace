@@ -18,6 +18,7 @@ class Profile extends React.Component {
         <p>You have posted {photo} photos.</p>
         <p>Your first post was on {firstDay} at {firstTime}.</p>
         <p>Your most recent post was on {lastDay} at {lastTime}.</p>
+        <button className="btn btn-outline-danger my-sm-0 d-block" type="submit"  name="choice" value="Photo">Delete your Account</button>
       </NavBar>
     );
   }

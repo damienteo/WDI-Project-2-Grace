@@ -10,7 +10,7 @@ class Message extends React.Component {
 
     return (
       <NavBar authentication={authentication}>
-      	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      	<div className="alert alert-warning alert-dismissible fade show" role="alert">
 		  <strong>{message}</strong>
 		</div>
       </NavBar>

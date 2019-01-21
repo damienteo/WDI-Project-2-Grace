@@ -57,17 +57,13 @@ module.exports = (app, db, upload) => {
 
 };
 
-  
-
-//index page
-
 //edit photos
 //delete photos
 
-// - - delete user button
+//edit templates
+//delete templates
 
-// refactor customised templates
-//css for upload photo page
+//delete user button
 
  //email reminders
 

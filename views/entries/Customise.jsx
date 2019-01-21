@@ -11,19 +11,25 @@ class Customise extends React.Component {
         const {id, name, starter, addon} = template;
 
         return (
-            <div className="jumbotron" key = {id}>
-              <h5><em>Template:<strong>{name}</strong>,</em></h5>
-              <h4>Prompt: <strong>{starter}</strong></h4>
-              <h4>Elaboration: <strong>{addon}</strong>"</h4> 
-              <form method="POST" action="/edit/template/" className = "d-inline-block">
+
+            <div className="card text-center m-2" style={{  width: '40%'}} key={id}>
+              <div className="card-header" id="mutedSection">
+                Template:<strong>{name}</strong>
+              </div>
+              <div className="card-body">
+                <p className="card-text text-justify" id="lastLineAlign">Prompt: <strong>{starter}</strong></p>
+                <p className="card-text text-justify" id="lastLineAlign">Elaboration: <strong>{addon}</strong></p>
+                <form method="POST" action="/edit/template/" className = "d-inline-block">
                   <input type="hidden" name="id" id="id" value={id} />
                   <button type="submit" className="btn btn-secondary mr-3 ml-3">Edit</button>
-              </form>
-              <form method="POST" action="/delete/template?_method=DELETE" className = "d-inline-block">
-                  <input type="hidden" name="id" id="id" value={id} />
-                  <button type="submit" className="btn btn-danger">Delete</button>
-              </form>
+                </form>
+                <form method="POST" action="/delete/template?_method=DELETE" className = "d-inline-block">
+                    <input type="hidden" name="id" id="id" value={id} />
+                    <button type="submit" className="btn btn-danger">Delete</button>
+                </form>
+              </div>
             </div>
+
             );
         });
 
@@ -35,12 +41,12 @@ class Customise extends React.Component {
             <br/>
             What is the name of your new template?
             <input type="text" className="form-control" name="name" id="starter" placeholder="..."/>
-            What is the subject of the entry? (e.g. Is it a specific moment, an object, or a person?)
+            What do you want to focus on? (e.g. Is it a person, an object, or a moment?)
             <input type="text" className="form-control" name="starter" id="starter" placeholder="..."/>
-            What do you want to focus on for the subject? (e.g. Did it impact your life, changed your mood, or helped you learn something?)
+            What sort of impact are you looking at? (e.g. Did it change your life, changed your mood, or helped you learn something?)
             <input type="text" className="form-control" name="addon" id="addon" placeholder="..."/>
           </div>
-          <button name="submit" type="submit" className="btn btn-primary">Submit</button>
+          <button name="submit" type="submit" className="btn btn-outline-primary">Submit</button>
         </form>
         <h3>Your previous customised templates are as follows: </h3>
         {templates}

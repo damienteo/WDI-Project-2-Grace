@@ -41,11 +41,11 @@ class PastJournal extends React.Component {
               <p className="card-text text-justify" id="lastLineAlign">{addon}: <strong>{reason}</strong></p>
               <form method="POST" action="/edit/journal/" className = "d-inline-block">
                   <input type="hidden" name="id" id="id" value={id} />
-                  <button type="submit" className="btn btn-secondary mr-3 ml-3">Edit</button>
+                  <button type="submit" className="btn btn-outline-secondary mr-3 ml-3">Edit</button>
               </form>
               <form method="POST" action="/delete/journal?_method=DELETE" className = "d-inline-block">
                   <input type="hidden" name="id" id="id" value={id} />
-                  <button type="submit" className="btn btn-danger">Delete</button>
+                  <button type="submit" className="btn btn-outline-danger">Delete</button>
               </form>
             </div>
             <div className="card-footer text-muted">

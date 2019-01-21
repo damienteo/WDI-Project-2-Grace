@@ -26,7 +26,7 @@ class NewJournal extends React.Component {
             {input.addon}:
             <input type="text" className="form-control" name="reason" id="reason" placeholder="..."/>
           </div>
-          <button name="submit" type="submit" className="btn btn-primary">Submit</button>
+          <button name="submit" type="submit" className="btn btn-outline-primary">Submit</button>
         </form>
       );
     });
