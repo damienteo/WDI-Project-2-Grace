@@ -46,23 +46,24 @@ module.exports = (app, db, upload) => {
   app.post('/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
 };
 
-
-//profile page
-
-  //responsive navbars - pending decision on the input to decide if/else function if/else function
+  
 
 //index page
 
-  //edit photos
-  //delete photos
-  // - - delete user button
+//edit photos
+//delete photos
+
+// - - delete user button
 
 // refactor customised templates
 //css for upload photo page
 
- //email reminders
-
- //mobile ready
 
 //cloudinary
 //herokuapp
+
+//responsive navbars - pending decision on the input to decide if/else function if/else function
+
+ //email reminders
+
+ //mobile ready

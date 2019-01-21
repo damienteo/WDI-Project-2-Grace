@@ -5,7 +5,7 @@
  */
 module.exports = (dbPoolInstance) => {
 
-  let newJournal = (templateChoice, currentUserId, callback) => {
+  let newJournal = (templateChoice, currentUserId, authentication, callback) => {
 
     dbPoolInstance.query(`
       SELECT * 
@@ -14,6 +14,9 @@ module.exports = (dbPoolInstance) => {
       `, (error, basicResult) => {
 
       let journals = {};
+      journals.authentication = [];
+      journals.authentication.push(authentication);
+
       journals.templates=[];
 
       for(let i = 0; i < basicResult.rows.length; i++){

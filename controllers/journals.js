@@ -28,6 +28,7 @@ const userAuthentication = (request, response, model) => {
       
 		if( currentLog == compareLog ){
 			
+			authentication = true
 			model();
 
 	    }else{
@@ -50,7 +51,7 @@ let newJournal = (request, response) => {
 		request, 
 		response, 
 		() => {
-			db.journals.newJournal( templateChoice, currentUserId, (journals) => {
+			db.journals.newJournal( templateChoice, currentUserId, authentication, (journals) => {
 				response.render('entries/NewJournal', journals);
 			});
 		}
