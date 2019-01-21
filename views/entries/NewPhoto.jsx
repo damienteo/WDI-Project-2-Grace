@@ -4,8 +4,10 @@ var NavBar = require('../NavBar');
 class NewPhoto extends React.Component {
   render() {
 
+    const {authentication}=this.props;
+
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <div className = "mt-5 mb-5"></div>
         <form action="/photo/sent" encType="multipart/form-data" method="post">
           <input type="file" name="file-to-upload" />

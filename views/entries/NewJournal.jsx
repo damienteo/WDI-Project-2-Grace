@@ -4,7 +4,9 @@ var NavBar = require('../NavBar');
 class NewJournal extends React.Component {
   render() {
 
-    let templates = this.props.templates.map( template => {
+    const {authentication}=this.props;
+
+    let templates = this.props.journals.templates.map( template => {
       return (
         <option key = {template.id} value={template.id}>
             {template.name}
@@ -12,7 +14,7 @@ class NewJournal extends React.Component {
         );
       });
 
-    let inputs = this.props.inputs.map( input => {
+    let inputs = this.props.journals.inputs.map( input => {
       return (
         <form key = {input.id} className="user-form tweet-form" method="POST" action="/journals/complete">
           <div className="form-group tweet-attribute">
@@ -30,7 +32,7 @@ class NewJournal extends React.Component {
     });
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <form method="POST" action={"/journals/new"} id="entry">
           <h3>What do you want to focus on today?</h3>
           <select className="custom-select col-6 mb-3" name="id">

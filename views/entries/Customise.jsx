@@ -4,7 +4,9 @@ var NavBar = require('../NavBar');
 class Customise extends React.Component {
   render() {
 
-    let templates = this.props.list.map( template => {
+    const {authentication}=this.props;
+
+    let templates = this.props.results.list.map( template => {
 
         const {id, name, starter, addon} = template;
 
@@ -26,7 +28,7 @@ class Customise extends React.Component {
         });
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <form className="user-form customise-form mb-3" method="POST" action="/customise/complete">
           <div className="form-group customise-attribute">
             <label htmlFor="customiseTemplate"><h3>Make a new customised Template</h3></label>

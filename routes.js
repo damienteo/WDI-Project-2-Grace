@@ -58,12 +58,11 @@ module.exports = (app, db, upload) => {
 // refactor customised templates
 //css for upload photo page
 
-
-//cloudinary
-//herokuapp
-
 //responsive navbars - pending decision on the input to decide if/else function if/else function
 
  //email reminders
 
  //mobile ready
+
+ //npm i moment
+ 

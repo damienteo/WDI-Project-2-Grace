@@ -4,7 +4,9 @@ var NavBar = require('../NavBar');
 class RandomJournal extends React.Component {
   render() {
 
-    let inputs = this.props.inputs.map( input => {
+    const {authentication}=this.props;
+
+    let inputs = this.props.journals.inputs.map( input => {
       return (
         <form key = {input.id} className="user-form tweet-form" method="POST" action="/journals/complete">
           <div className="form-group tweet-attribute">
@@ -22,7 +24,7 @@ class RandomJournal extends React.Component {
     });
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <form method="GET" action={"/journals/random"} id="entry">
           <div className="input-group-append mb-3">
             <button className="btn btn-outline-info" type="submit">Generate New Prompt</button>

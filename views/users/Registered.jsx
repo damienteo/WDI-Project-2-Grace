@@ -3,8 +3,11 @@ var NavBar = require('../NavBar');
 
 class Register extends React.Component {
   render() {
+
+	const {authentication}=this.props;
+
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <h1>Registration Successful</h1>
       </NavBar>
     );

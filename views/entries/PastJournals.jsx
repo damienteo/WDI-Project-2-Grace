@@ -4,7 +4,9 @@ var NavBar = require('../NavBar');
 class PastJournal extends React.Component {
   render() {
 
-    let journals = this.props.list.map( journal => {
+    const {authentication}=this.props;
+
+    let journals = this.props.results.list.map( journal => {
 
       var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const date = journal.created_on.toLocaleDateString("en-US", dateOptions);
@@ -12,7 +14,7 @@ class PastJournal extends React.Component {
       const { reason, starter, addon, id, category} = journal;
 
       if (category === 'Photo') {
-        let object = "../../uploads/"+journal.object;
+        let object = journal.object;
         return (
           <div className="card text-center m-2" style={{  width: '95%'}} key={id}>
             <div className="card-header" id="mutedSection">
@@ -55,7 +57,7 @@ class PastJournal extends React.Component {
     });
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <div className="row">
           <div className="col-2 d:inline-block m-3 text-center">
             <div id="fixedPosition">

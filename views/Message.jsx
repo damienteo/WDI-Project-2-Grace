@@ -6,8 +6,10 @@ class Message extends React.Component {
 
   	let message = this.props.message;
 
+    const {authentication}=this.props;
+
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
       	<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		  <strong>{message}</strong>
 		</div>

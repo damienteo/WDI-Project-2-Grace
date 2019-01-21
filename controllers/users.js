@@ -13,6 +13,8 @@ module.exports = (db) => {
 * ===========================================
 */
 
+let authentication=false;
+
 const cookieAuthentication = request => {
 
 	currentUserId = request.cookies['userId'];
@@ -32,8 +34,9 @@ const loginAuthentication = (request, response, view) => {
 
     }else{
 		if( currentLog == compareLog ){
+			authentication = true
 			message = "You are already logged in. Please log out first.";
-			response.render('Message', {message});
+			response.render('Message', {message, authentication});
 	    }else{
 	     	response.render(view);
 	    }
@@ -108,6 +111,7 @@ let loggedin = (request, response) => {
 
 					response.cookie('loggedin', hashUserId);
 					response.cookie('userId', userId);
+					authentication = true;
 					message = "Successfully logged in.";
 		          
 		        } else {
@@ -115,7 +119,7 @@ let loggedin = (request, response) => {
 		        }
 			}
 	    }
-	    response.render('Message', {message});
+	    response.render('Message', {message, authentication});
 	});
 }
 
@@ -135,6 +139,8 @@ let logout = (request, response) => {
 			message = "You have logged out";
 
 	    }else{
+	    	response.clearCookie('loggedin');
+        	response.clearCookie('userId');
 	     	message = "Invalid User Profile. Please log in again.";
 	    }
     }
@@ -155,8 +161,9 @@ let profile = (request, response) => {
     }else{
       
 		if( currentLog == compareLog ){
+			authentication = true
 			db.users.profile(currentUserId, (error, 	results) => {
-				response.render('users/Profile', results);
+				response.render('users/Profile', {results,authentication});
 			});
 	    }else{
 	     	message = "Invalid Profile";

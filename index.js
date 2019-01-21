@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
+require('dotenv').config();
 
 const db = require('./db');
 const app = express();
@@ -17,7 +18,10 @@ cloudinary.config({
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "uploads",
-  allowedFormats: ["jpg", "png"]
+  allowedFormats: ["jpg", "png"],
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
 });
 
 // const storage = multer.diskStorage({

@@ -4,8 +4,10 @@ var NavBar = require('../NavBar');
 class Home extends React.Component {
   render() {
 
+    const {authentication}=this.props;
+
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <form className="user-form col-6" method="POST" action="/users/loggedin">
           <div className="form-group user-attribute">
             <label htmlFor="inputUsername">Username</label>

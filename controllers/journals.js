@@ -29,7 +29,7 @@ const userAuthentication = (request, response, model) => {
 		if( currentLog == compareLog ){
 			
 			authentication = true
-			model();
+			model(authentication);
 
 	    }else{
 	     	message = "Invalid Profile";
@@ -38,6 +38,8 @@ const userAuthentication = (request, response, model) => {
     }
 
 }
+
+// express middleware
 
 let newJournal = (request, response) => {
 
@@ -50,9 +52,9 @@ let newJournal = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
-			db.journals.newJournal( templateChoice, currentUserId, authentication, (journals) => {
-				response.render('entries/NewJournal', journals);
+		(authentication) => {
+			db.journals.newJournal( templateChoice, currentUserId, (journals) => {
+				response.render('entries/NewJournal', {journals, authentication});
 			});
 		}
 	)
@@ -63,8 +65,8 @@ let newPhoto = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
-			response.render('entries/NewPhoto')
+		(authentication) => {
+			response.render('entries/NewPhoto', {authentication})
 		}
 	)
 }
@@ -74,9 +76,9 @@ let randomJournal = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.randomJournal( (journals) => {
-				response.render('entries/RandomJournal', journals);
+				response.render('entries/RandomJournal', {journals, authentication});
 			});
 		}
 	)
@@ -92,10 +94,10 @@ let complete = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.complete( object, reason, template_id, currentUserId, (results) => {
 
-				response.render('entries/PastJournals', results);
+				response.render('entries/PastJournals', {results, authentication});
 			});	
 		}
 	)
@@ -103,16 +105,18 @@ let complete = (request, response) => {
 
 let sentPhoto = (request, response) => {
 
-	let object = request.file.filename;
+	let object = request.file.url;
 	let reason = request.body.reason;
 	let templateId = request.body.templateId;
+
+	console.log(object);
 
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.sentPhoto(object, reason, templateId, currentUserId, (results) => {
-				response.render('entries/PastJournals', results);
+				response.render('entries/PastJournals', {results, authentication});
 			});	
 		}
 	)
@@ -123,9 +127,9 @@ let history = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.history(currentUserId, (results) => {
-				response.render('entries/PastJournals', results);
+				response.render('entries/PastJournals', {results, authentication});
 			});
 		}
 	) 
@@ -138,11 +142,11 @@ let deleteEntry = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.deleteEntry(entryChoice, (results) => {
 
 				message = "You have deleted the entry";
-	     		response.render('Message', {message});
+	     		response.render('Message', {message, authentication});
 			});	
 		}
 	) 
@@ -155,9 +159,9 @@ let editEntry = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.editEntry(entryChoice, (results) => {
-				response.render('entries/EditJournal', results);
+				response.render('entries/EditJournal', {results, authentication});
 			});
 		}
 	) 
@@ -172,7 +176,7 @@ let editedEntry = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.editedEntry(entryChoice, object, reason, (results) => {
 
 				let info = [];
@@ -182,7 +186,7 @@ let editedEntry = (request, response) => {
 				info.push(message);
 				info.push(results);
 
-				response.render('entries/LatestJournal', info);
+				response.render('entries/LatestJournal', {info, authentication});
 			});	
 		}
 	) 
@@ -195,9 +199,9 @@ let sortby = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.sortby(currentUserId, choice, (results) => {
-				response.render('entries/PastJournals', results);
+				response.render('entries/PastJournals', {results, authentication});
 			});
 		}
 	) 
@@ -210,9 +214,9 @@ let search = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.search(currentUserId, searchTerm, (results) => {
-				response.render('entries/PastJournals', results);
+				response.render('entries/PastJournals', {results, authentication});
 			});
 		}
 	) 
@@ -223,9 +227,9 @@ let customise = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.customise(currentUserId, (results) => {
-				response.render('entries/Customise', results);
+				response.render('entries/Customise', {results, authentication});
 			});
 		}
 	)
@@ -240,9 +244,9 @@ let createTemplate = (request, response) => {
 	userAuthentication(
 		request, 
 		response, 
-		() => {
+		(authentication) => {
 			db.journals.createTemplate(name, starter, addon, currentUserId, (results) => {
-				response.render('entries/Customise', results);
+				response.render('entries/Customise', {results, authentication});
 			});	
 		}
 	)

@@ -5,10 +5,12 @@ class Profile extends React.Component {
 
   render() {
 
-    const {basic, random, customised, photo, firstDay, firstTime, lastDay, lastTime} = this.props.list[0];
+    const {basic, random, customised, photo, firstDay, firstTime, lastDay, lastTime} = this.props.results.list[0];
+
+    const {authentication}=this.props;
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <h1>Here is your profile page:</h1>
         <p>You have made {basic} basic entries.</p>
         <p>You have made {random} random entries.</p>

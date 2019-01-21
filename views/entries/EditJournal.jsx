@@ -5,12 +5,14 @@ class EditJournal extends React.Component {
   render() {
 
     var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const date = this.props.created_on.toLocaleDateString("en-US", dateOptions);
-    const time = this.props.to_char;
-    const {object, reason, starter, addon, id} = this.props;
+    const date = this.props.results.created_on.toLocaleDateString("en-US", dateOptions);
+    const time = this.props.results.to_char;
+    const {object, reason, starter, addon, id} = this.props.results;
+
+    const {authentication}=this.props;
 
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <div className="jumbotron">
           <h5><em>On {date} at {time},</em></h5> 
           <p><small>You wrote:</small></p>

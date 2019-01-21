@@ -3,8 +3,11 @@ var NavBar = require('../NavBar');
 
 class Register extends React.Component {
   render() {
+
+    const {authentication}=this.props;
+
     return (
-      <NavBar>
+      <NavBar authentication={authentication}>
         <form className="user-form col-6" method="POST" action="/users/registered">
           <div className="form-group user-attribute">
             <label htmlFor="inputUsername">Username</label>
