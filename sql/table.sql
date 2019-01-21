@@ -25,6 +25,6 @@ CREATE TABLE IF NOT EXISTS entries (
     template_id INTEGER REFERENCES templates (id),
     user_id INTEGER REFERENCES users (id),
     created_on TIMESTAMPTZ DEFAULT Now(),
-    created_at TIME DEFAULT CURRENT_TIME
+    created_at TIMESTAMPTZ  DEFAULT Now()
 );
 

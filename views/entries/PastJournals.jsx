@@ -9,7 +9,7 @@ class PastJournal extends React.Component {
     let journals = this.props.results.list.map( journal => {
 
       var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const date = journal.created_on.toLocaleDateString("en-US", dateOptions);
+      const date = journal.created_on.toLocaleDateString("en-SG", dateOptions);
       const time = journal.to_char;
       const { reason, starter, addon, id, category} = journal;
 

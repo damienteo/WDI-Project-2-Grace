@@ -5,7 +5,7 @@ class EditJournal extends React.Component {
   render() {
 
     var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const date = this.props.results.created_on.toLocaleDateString("en-US", dateOptions);
+    const date = this.props.results.created_on.toLocaleDateString("en-SG", dateOptions);
     const time = this.props.results.to_char;
     const {object, reason, starter, addon, id} = this.props.results;
 
