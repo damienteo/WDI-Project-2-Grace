@@ -56,7 +56,7 @@ class NavBar extends React.Component{
       <html>
         <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto|Raleway" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="../styles/style.css" />
         <title>Grace</title>
         </head>

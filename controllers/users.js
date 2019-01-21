@@ -17,6 +17,8 @@ let authentication=false;
 
 const cookieAuthentication = request => {
 
+	authentication=false;
+
 	currentUserId = request.cookies['userId'];
 	currentLog = request.cookies['loggedin'];
 	compareLog = sha256(loginString + currentUserId);
@@ -28,6 +30,8 @@ const loginAuthentication = (request, response, view) => {
 	currentUserId = request.cookies['userId'];
 	currentLog = request.cookies['loggedin'];
 	compareLog = sha256(loginString + currentUserId);
+
+	authentication=false;
 
 	if( currentLog == null ){
 		response.render(view);
@@ -41,6 +45,22 @@ const loginAuthentication = (request, response, view) => {
 	     	response.render(view);
 	    }
     }
+};
+
+const frontAuthentication = (request, response, message, view) => {
+
+	currentUserId = request.cookies['userId'];
+	currentLog = request.cookies['loggedin'];
+	compareLog = sha256(loginString + currentUserId);
+
+	authentication = false;
+
+	if( currentLog == compareLog ){
+		authentication = true
+		
+	}
+
+    response.render(view, {message, authentication});
 };
 
 const userPassword = request => {
@@ -149,9 +169,7 @@ let logout = (request, response) => {
 
 let profile = (request, response) => {
 
-	currentUserId = request.cookies['userId'];
-	currentLog = request.cookies['loggedin'];
-	compareLog = sha256(loginString + currentUserId);
+	cookieAuthentication(request);
 
 	if( currentLog == null ){
 
@@ -173,6 +191,16 @@ let profile = (request, response) => {
     
 }
 
+let index = (request, response) => {
+	message = "This is the Index Page";
+ 	frontAuthentication(request, response, message, 'Index');
+}
+
+let noPage = (request, response) => {
+	message = "Page not found";
+ 	frontAuthentication(request, response, message, 'Message');
+}
+
 
 /**
 * ===========================================
@@ -185,7 +213,9 @@ let profile = (request, response) => {
 		registered,
 		loggedin,
 		logout,
-		profile
+		profile,
+		index,
+		noPage
 	};
 
 }

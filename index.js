@@ -60,16 +60,16 @@ app.engine('jsx', reactEngine);
  // Import routes to match incoming requests
 require('./routes')(app, db, upload);
 
-// Root GET request (it doesn't belong in any controller file)
-app.get('/', (request, response) => {
-  response.render('Index');
-});
+// // Root GET request (it doesn't belong in any controller file)
+// app.get('/', (request, response) => {
+//   response.render('Index');
+// });
 
- // Catch all unmatched requests and return 404 not found page
-app.get('*', (request, response) => {
-  message = "Page not found";
-  response.render('Message', {message});
-});
+//  // Catch all unmatched requests and return 404 not found page
+// app.get('*', (request, response) => {
+//   message = "Page not found";
+//   response.render('Message', {message});
+// });
 
 /**
  * ===================================

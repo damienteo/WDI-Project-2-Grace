@@ -8,6 +8,7 @@ module.exports = (app, db, upload) => {
    *  Users
    *  =========================================
    */
+
   // CRUD users
   
   app.get('/users/register', users.register);
@@ -44,6 +45,16 @@ module.exports = (app, db, upload) => {
   // CRUD photos
   app.get('/photo/new', journals.newPhoto);
   app.post('/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
+
+ /*
+   *  =========================================
+   *  Miscellaneous
+   *  =========================================
+   */
+
+  app.get('/', users.index);
+  app.get('*', users.noPage);
+
 };
 
   
@@ -57,8 +68,6 @@ module.exports = (app, db, upload) => {
 
 // refactor customised templates
 //css for upload photo page
-
-//responsive navbars - pending decision on the input to decide if/else function if/else function
 
  //email reminders
 
