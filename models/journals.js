@@ -86,7 +86,7 @@ module.exports = (dbPoolInstance) => {
         dbPoolInstance.query(`
           SELECT 
             entries.*, 
-            to_char(entries.created_at, 'HH12:MI:SS AM'), 
+            to_char(entries.created_at at time zone 'utc' at time zone 'SGT', 'HH12:MI:SS AM'), 
             templates.name, 
             templates.starter, 
             templates.addon, 
