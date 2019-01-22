@@ -12,41 +12,49 @@ class NavBar extends React.Component{
       if (authentication) {
         return (
           <React.Fragment>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Entries
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="/journals/new">New Entry</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="/journals/random">New Random Entry</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="/customise/journals">Customise Entries</a>
-              </div>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/photo/new">Post Photo<span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/users/logout">Logout<span className="sr-only">(current)</span></a>
-            </li> 
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Entries
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="/journals/new">New Entry</a>
+                  <div className="dropdown-divider"></div>
+                  <a className="dropdown-item" href="/journals/random">New Random Entry</a>
+                  <div className="dropdown-divider"></div>
+                  <a className="dropdown-item" href="/customise/journals">Customise Entries</a>
+                </div>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/photo/new">Post Photo<span className="sr-only">(current)</span></a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/journals/history">History<span className="sr-only">(current)</span></a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/users/profile">Profile<span className="sr-only">(current)</span></a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/users/logout">Logout<span className="sr-only">(current)</span></a>
+              </li> 
+            </ul>
+            <form className="form-inline my-2 my-lg-0" method="POST" action={"/journals/search"} id="searchJournals">
+                  <input className="form-control mr-sm-2" type="search" placeholder="Search past entries" aria-label="Search" name="searchTerm" />
+                  <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
           </React.Fragment>
         )
       } else {
         return (
           <React.Fragment>
-            <li className="nav-item active">
-              <a className="nav-link" href="/users/login">Login<span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item active">
-              <a className="nav-link" href="/users/register">Register<span className="sr-only">(current)</span></a>
-            </li>
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="/users/login">Login<span className="sr-only">(current)</span></a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/users/register">Register<span className="sr-only">(current)</span></a>
+              </li>
+            </ul>
           </React.Fragment>
         )
       }
@@ -67,13 +75,8 @@ class NavBar extends React.Component{
                 <span className="navbar-toggler-icon"></span>
               </button>
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
                   {userOptions()}   
-                </ul>
-                <form className="form-inline my-2 my-lg-0" method="POST" action={"/journals/search"} id="searchJournals">
-                  <input className="form-control mr-sm-2" type="search" placeholder="Search past entries" aria-label="Search" name="searchTerm" />
-                  <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                
               </div>
             </nav>
             <div className="container-fluid" id="pushFixed" >
