@@ -18,7 +18,7 @@ cloudinary.config({
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "uploads",
-  allowedFormats: ["jpg", "png"],
+  allowedFormats: ["jpg", "png", "gif"],
   filename: function (req, file, callback) {
     callback(null, file.fieldname + '-' + Date.now());
   }
