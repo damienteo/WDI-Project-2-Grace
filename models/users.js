@@ -83,25 +83,38 @@ let profile = (currentUserId, callback) => {
 
         const lastEntry = basicResult.rows.length - 1;
 
-        let firstDay = basicResult.rows[0].created_on.toLocaleDateString("en-SG", dateOptions);
-        let firstTime = basicResult.rows[0].to_char;
-        let lastDay = basicResult.rows[lastEntry].created_on.toLocaleDateString("en-SG", dateOptions);
-        let lastTime = basicResult.rows[lastEntry].to_char;
+        let results = {};
+        results.list=[];
 
-     	let results = {};
-     	results.list=[];
-     	results.list.push(
-     		{basic:basicCount, 
-     		random:randomCount,
-     		customised:customisedCount, 
-     		photo:photoCount,
-            firstDay,
-            firstTime,
-            lastDay,
-            lastTime}
-     	);
+        if (basicResult.rows[0] == undefined) {
 
-     	callback(null, results);
+          results.list.push(
+            {basic:basicCount, 
+            random:randomCount,
+            customised:customisedCount, 
+            photo:photoCount,
+            }
+          );
+        } else {
+          let firstDay = basicResult.rows[0].created_on.toLocaleDateString("en-SG", dateOptions);
+          let firstTime = basicResult.rows[0].to_char;
+          let lastDay = basicResult.rows[lastEntry].created_on.toLocaleDateString("en-SG", dateOptions);
+          let lastTime = basicResult.rows[lastEntry].to_char;
+
+          results.list.push(
+            {basic:basicCount, 
+            random:randomCount,
+            customised:customisedCount, 
+            photo:photoCount,
+                firstDay,
+                firstTime,
+                lastDay,
+                lastTime}
+          );
+        }
+
+        callback(null, results);
+        
     });
 }
 
