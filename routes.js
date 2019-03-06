@@ -10,7 +10,7 @@ module.exports = (app, db, upload) => {
    */
 
   // CRUD users
-  
+
   app.get('/users/register', users.register);
   app.post('/users/registered', users.registered);
 
@@ -28,7 +28,7 @@ module.exports = (app, db, upload) => {
    */
 
 
- // CRUD journals
+  // CRUD journals
   app.get('/journals/new', journals.newJournal);
   app.get('/journals/random', journals.randomJournal);
   app.post('/journals/new', journals.newJournal);
@@ -46,7 +46,7 @@ module.exports = (app, db, upload) => {
   app.get('/photo/new', journals.newPhoto);
   app.post('/photo/sent', upload.single('file-to-upload'), journals.sentPhoto);
 
- /*
+  /*
    *  =========================================
    *  Miscellaneous
    *  =========================================
@@ -56,18 +56,3 @@ module.exports = (app, db, upload) => {
   app.get('*', users.noPage);
 
 };
-
-//edit photos
-//delete photos
-
-//edit templates
-//delete templates
-
-//delete user button
-
- //email reminders
-
- //mobile ready
-
- //npm i moment
- 

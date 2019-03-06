@@ -4,7 +4,7 @@ var NavBar = require('../NavBar');
 class Register extends React.Component {
   render() {
 
-	const {authentication}=this.props;
+    const { authentication } = this.props;
 
     return (
       <NavBar authentication={authentication}>

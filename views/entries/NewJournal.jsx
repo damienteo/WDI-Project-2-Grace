@@ -4,27 +4,27 @@ var NavBar = require('../NavBar');
 class NewJournal extends React.Component {
   render() {
 
-    const {authentication}=this.props;
+    const { authentication } = this.props;
 
-    let templates = this.props.journals.templates.map( template => {
+    let templates = this.props.journals.templates.map(template => {
       return (
-        <option key = {template.id} value={template.id}>
-            {template.name}
+        <option key={template.id} value={template.id}>
+          {template.name}
         </option>
-        );
-      });
+      );
+    });
 
-    let inputs = this.props.journals.inputs.map( input => {
+    let inputs = this.props.journals.inputs.map(input => {
       return (
-        <form key = {input.id} className="user-form tweet-form" method="POST" action="/journals/complete">
+        <form key={input.id} className="user-form tweet-form" method="POST" action="/journals/complete">
           <div className="form-group tweet-attribute">
             <label htmlFor="inputTweet"><h3>What do you wish to say?</h3></label>
-            <br/>
+            <br />
             <input type="hidden" name="id" id="id" value={input.id} />
             {input.starter}:
-            <input type="text" className="form-control" name="object" id="object" placeholder="..."/>
+            <input type="text" className="form-control" name="object" id="object" placeholder="..." />
             {input.addon}:
-            <input type="text" className="form-control" name="reason" id="reason" placeholder="..."/>
+            <input type="text" className="form-control" name="reason" id="reason" placeholder="..." />
           </div>
           <button name="submit" type="submit" className="btn btn-outline-primary">Submit</button>
         </form>

@@ -1,68 +1,68 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: rgba(240,248,255);
+    background-color: rgba(240, 248, 255);
 }
 
 p {
-	font-family: 'Roboto', sans-serif;
-	font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
 }
 
 #graceLogo {
-	font-family: 'Pacifico', cursive;
-	font-size: 2rem;
-	padding: 0 0 0.8rem 0;
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    padding: 0 0 0.8rem 0;
 }
 
 #graceHeadline {
-	display: block;
-	font-family: 'Pacifico', cursive;
-	font-size: 8rem;
-	padding: 2rem 0 3rem 0;
+    display: block;
+    font-family: 'Pacifico', cursive;
+    font-size: 8rem;
+    padding: 2rem 0 3rem 0;
 }
 
 .indexText {
-	display: block;
-	font-family: 'Raleway', sans-serif;
+    display: block;
+    font-family: 'Raleway', sans-serif;
 }
 
 #indexContainer {
-	height: 20rem;
+    height: 20rem;
 }
 
-.indexText{
-	margin: 1rem;
+.indexText {
+    margin: 1rem;
 }
 
 #pushFixed {
-	margin-top: 6rem;
+    margin-top: 6rem;
 }
 
 #cardPhoto {
-	max-height: 25rem;
-	overflow:hidden;
-	width: auto;
-	display: block;
-	margin: auto;
-	margin-top: 1rem;
+    max-height: 25rem;
+    overflow: hidden;
+    width: auto;
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
 }
 
-#journalsCentered{
-	display: block;
+#journalsCentered {
+    display: block;
     float: none;
     margin: 0 auto;
     width: 63rem;
 }
 
 #mutedSection {
-	background-color: rgb(255, 250, 205);
+    background-color: rgb(255, 250, 205);
 }
 
 #fixedPosition {
-	position: fixed;
+    position: fixed;
 }
 
 #lastLineAlign {
-	text-align-last: center;
+    text-align-last: center;
 }
