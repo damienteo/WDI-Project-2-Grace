@@ -2,8 +2,9 @@
 Grace is a Gratitude Journal, done as part of Project 2 under General Assembly Singapore's Wed Development Immersive. The project involves languages such as HTML, CSS, Javascript, and packages such as Node, Express, and PostgresSQL.
 
 # About
-Problem: People want to be happier.
-Solution: They can keep a gratitude journal. Positive psychology journals have shown that gratitude journaling helps people to maintain a more positive mindset by helping them draw their attention to the happier things in life.
+Problem: People want to be happier.__
+Solution: They can keep a gratitude journal.__
+Positive psychology journals have shown that gratitude journaling helps people to maintain a more positive mindset by helping them draw their attention to the happier things in life.
 
 # Deliverables
 - The spec provides a usable interface for the user to create entries in a online gratitude journal.
@@ -28,3 +29,8 @@ Solution: They can keep a gratitude journal. Positive psychology journals have s
 - sign up/log in functionality, with hashed passwords & an authorization flow
 - App incorporates a CSS Framework (Boostrap).
 - App allows Image Upload, using the Multer package and Cloudinary.
+
+#Pending
+- Optimise for mobile
+- Email reminders
+- Sharing entries with specific people
